@@ -3,166 +3,193 @@ from __future__ import annotations
 from enum import Enum
 from typing import List, Dict, Optional, Union
 from abc import ABC, abstractmethod
- 
-class SpecialTokenTypes(Enum):
-    END_BRANCH = 1
-    
+from dataclasses import dataclass
+     
+@dataclass(frozen=True)
 class Vocabulary:
-    def __init__(self, token_id_types: Dict[int, int]):
-        '''
-        A token id can only map to a single type. The mapping must not have any ambiguity. All of the grammar rules that refer to a branch will need to be special token ids that
-        are not used in literal expressions.
-        '''
-        self._token_id_types = token_id_types
-
-class MatchResult(Enum):
-    INVALID = 1
-    VALID_NOT_DONE = 2
-    VALID_DONE = 3
-    DONE_RETRY_NEXT_MATCHER = 4
+    '''
+    A token id can only map to a single type. The mapping must not have any ambiguity. All of the grammar rules that refer to a branch will need to be special token ids that
+    are not used in literal expressions.
+    '''
+    token_id_types: Dict[int, int]
 
 class TokenMatcher(ABC):
-    @abstractmethod
-    def get_id(self) -> int:
-        ''''
-        Returns the id of this token matcher.
-        '''
-        pass
-
     @abstractmethod
     def is_optional(self) -> bool:
         '''
         Returns true if the current matcher is optional and whether the next matcher should be consulted.
-
-        TODO Do we need this since there will be optional matchers? We probably need to skip optional and backtrack to them if necessary.
         '''
         pass
 
     @abstractmethod
-    def test(self, token_ids: List[int]) -> MatchResult:
+    def matches_multiple(self) -> bool:
         '''
-        Tests the provided token ids to see if they are considered valid.
-        Returns a match result that gives instructions on what to do with the token.
+        Returns true if the current matcher matches multiple tokens.
         '''
         pass
 
-class GrammarRule:
-    def __init__(self, id: int, rule_type: int, token_matchers: List[TokenMatcher]):
-        assert len(token_matchers) > 0
-        self.rule_type = rule_type
-        self._token_matchers = token_matchers
-        self._matcher_index = 0
-    
-    def test_tokens(self, token_ids: List[int]):
+    @abstractmethod
+    def test_token(self, token_id: int) -> bool:
+        '''
+        Tests the provided token id to see if it are considered valid for this matcher.
+        Returns true if the token is valid and false if invalid.
+        '''
         pass
-
-    def complete_matcher(self) -> bool:
-        '''
-        Moves to the next matcher and returns true if there are no more matchers in this rule.
-        '''
-        self._matcher_index += 1
-
-        # TODO Check if there are no more matchers.
-        return False
-
-class Grammar:
-    def __init__(self, root_rule: GrammarRule, rules: List[GrammarRule]):
-        self._root_rule = root_rule
-        self._rules = rules
-
-    def get_root_rule(self) -> GrammarRule:
-        return self._root_rule
 
 class ParseResultType(Enum):
     NEW_RULE_RESULT = 1
-    END_RULE_RESULT = 2
-    MATCH_RESULT = 3
+    MATCH_RESULT = 2
 
+@dataclass
 class ParseResult:
-    def __init__(self, type: ParseResultType, is_valid: bool):
-        self.type = type
-        self.is_valid = is_valid
+    type: ParseResultType
+    # This field is the only one meant to be updated outside of the parser for results!
+    # Update this field to deny tokens which are valid by the grammar and invalid according to the context as witnessed by the application using this parser.
+    is_valid: bool
 
+@dataclass(init=False)
 class NewRuleResult(ParseResult):
-    '''
-    This specifies that the current rule should be paused while a sub-rule is being processed.
-    '''
-    def __init__(self, new_rule: GrammarRule):
-        ParseResult.__init__(ParseResultType.NEW_RULE_RESULT, True)
-        self.new_rule = new_rule
+    new_rule_id: int
 
-class EndRuleResult(ParseResult):
-    '''
-    This specifies that a rule has been fully matched and that the parent rule can resume its matching.
-    This is different than the completion of a matcher, because a rule can contain multiple matchers.
-    Matchers allow us to get the values of something within a rule, like a table's column. A rule is a combination of matchers.
-    '''
-    def __init__(self):
-        ParseResult.__init__(ParseResultType.END_RULE_RESULT, True)
+    def __init__(self, is_valid: bool, new_rule_id: int):
+        ParseResult.__init__(ParseResultType.NEW_RULE_RESULT, is_valid)
+        self.new_rule_id = new_rule_id
 
+class CompletionType(Enum):
+    INCOMPLETE = 1
+    MAYBE_COMPLETE = 2
+    COMPLETE = 3
+
+@dataclass(init=False)
 class MatchResult(ParseResult):
     '''
-    This is the most common result, which will provide information about the current matcher and matched token ids within the current rule.
-    A WHERE clause in SQL might have a column matcher and this result will specify which token ids make up the matched column and whether the match can 
-    be considered complete.
+    This is the most common result, which will provide information about the current rule and the matched token literals.
+    This type of result should be for simple literals such as a column name, table alias or a long list of arbitrary text.
 
-    It's unsure if the completion flag is able to be definitive or just a suggestion. It depends on how well the matchers turn out. There might be additional
-    tokens that can be applied to the current matcher. There might be a need for a maybe complete flag and a definitively complete flag. For the maybe complete
-    case we'll attempt to see if it applies to the current matcher and if not valid it will be applied to the next matcher.
+    The completion flag will specify the state of the matching within the current rule.
     '''
-    def __init__(self, is_valid: bool, cur_rule_type: int, cur_matcher_id: int, matched_ids: List[int], is_match_complete: bool):
+    cur_rule_id: int
+    matched_token_ids: List[int]
+    matched_matcher_index: int
+    rule_completion: CompletionType
+
+    def __init__(self, is_valid: bool, cur_rule_id: int, matched_token_ids: List[int], matched_matcher_index: int, rule_completion: CompletionType):
         ParseResult.__init__(ParseResultType.MATCH_RESULT, is_valid)
-        self.cur_rule_type = cur_rule_type
-        self.cur_matcher_id = cur_matcher_id
-        self.matched_ids = matched_ids
-        self.is_match_complete = is_match_complete
-        
-class RuleNode(list):
-    def __init__(self, parent: Optional[RuleNode], rule: GrammarRule):
+        self.cur_rule_id = cur_rule_id
+        self.matched_token_ids = matched_token_ids
+        self.matched_matcher_index = matched_matcher_index
+        self.rule_completion = rule_completion
+    
+class RuleNode(ABC, list):
+    def __init__(self, parent: Optional[RuleNode], id: Optional[int], token_matchers: List[TokenMatcher]):
         # The list's contents will be the ordered child rule nodes.
         list.__init__(self, [])
-        # The rule node starts with no children, so the index is -1.
-        self.cur_child_index = -1
+        assert len(token_matchers) > 0
         self.parent = parent
-        self._token_ids: List[int] = []
-        self._rule = rule
-        self._cur_matched_ids: List[int] = []
+        self.id = id
+        self._token_matchers = token_matchers
+        self._matcher_index = 0
+        self._cur_multiple_matcher_has_match = False
     
+    @abstractmethod
+    def is_branch(self) -> bool:
+        pass
+
+    @abstractmethod
     def test_token(self, token_id: int) -> ParseResult:
-        tmp_tokens = self._cur_matched_ids[:]
-        tmp_tokens.append(token_id)
-        return self._rule.test_tokens(tmp_tokens)
+        pass
     
-    def apply_token(self, token_id: int, parse_result: MatchResult) -> bool:
+    @abstractmethod
+    def apply_token(self, token_id: int, parse_result: MatchResult):
+        pass
+
+    def is_complete(self) -> bool:
+        return self._matcher_index >= len(self._token_matchers)
+    
+    def is_maybe_complete(self, start_matcher_index: Optional[int]) -> bool:
+        '''
+        Returns True if this rule is maybe complete starting at the current matcher index or the one that is provided and Fac lse otherwise.
+        '''
+        if start_matcher_index == None:
+            start_matcher_index = self._matcher_index
+
+        maybe_complete = True
+        # If the rest of the matchers are considered optional, then we'll say that this rule is maybe complete.
+        for opt_matcher_index in range(start_matcher_index, len(self._token_matchers)):
+            # Again, if the current multiple matcher has a match, then it is considered optional
+            if not self._token_matchers[opt_matcher_index].is_optional():
+                maybe_complete = False
+                break
+        return maybe_complete
+
+class GrammarRule(RuleNode):
+    def __init__(self, parent: Optional[RuleNode], id: Optional[int], token_matchers: List[TokenMatcher]):
+        RuleNode.__init__(self, parent, id, token_matchers)
+        self._token_ids: List[int] = []
+
+    def is_branch(self) -> bool:
+        return False
+
+    def test_token(self, token_id: int) -> ParseResult:
+        # Note: While testing tokens we cannot save any state! Multiple tokens will be tested to check for validity and then one will be chosen.
+
+        found_match = False
+        matched_matcher_index = self._matcher_index
+        # Iterate the matchers starting at the current matcher.
+        # The first matcher that matches against the token will receive priority. If we have no match and the matcher is optional or a multiple matcher with a match, then
+        # we will move to the next matcher to check against it.
+        for matcher_index in range(self._matcher_index, len(self._token_matchers)):
+            if self._token_matchers[matcher_index].test_token(token_id):
+                matched_matcher_index = matcher_index
+                found_match = True
+                break
+            # Priority is given to the current matcher, which is why we only move to the next matcher on the condition that the current matcher doesn't have a match.
+            elif self._token_matchers[matcher_index].is_optional():
+                continue
+            # If we're still on the first matcher and this multiple matcher already has a match, then we can move to the next matcher to check for a match.
+            # TODO The matches multiple check may not be necessary due to cur_multiple_matcher_has_match only being true for multiple matchers.
+            elif matcher_index == self._matcher_index and self._cur_multiple_matcher_has_match and self._token_matchers[matcher_index].matches_multiple():
+                continue
+        
+        matched_token_ids = self._token_ids[:]
+        if found_match:
+            matched_token_ids.append(token_id)
+
+        completion = CompletionType.INCOMPLETE
+        # We only enter a complete state when all of the matchers are undoubtedly matched.
+        # If the final matcher allows for multiple matches, then we'll have to rely on an explicit rule change.
+        if found_match and matched_matcher_index == (len(self._token_matchers) - 1) and not self._token_matchers[matched_matcher_index].matches_multiple():
+            completion = CompletionType.COMPLETE
+        # If we found a match, then the matched matcher is maybe complete regardless if it matches multiple, is optional, or required.
+        elif found_match and self.is_maybe_complete(matched_matcher_index + 1):
+            completion = CompletionType.MAYBE_COMPLETE
+        elif self.is_maybe_complete(matched_matcher_index):
+            completion = CompletionType.MAYBE_COMPLETE
+
+        return MatchResult(found_match, self.id, matched_token_ids, matched_matcher_index, completion)
+
+
+    def apply_token(self, token_id: int, parse_result: MatchResult):
         assert parse_result.type == ParseResultType.MATCH_RESULT
 
-        self._token_ids.append(token_id)
-
-        is_rule_done = False
-        # If the parse result specifies that the previous matcher was complete, then we reset the matched ids.
-        if (parse_result.is_match_complete):
-            self.reset_matched_ids
-            is_rule_done = self.rule.complete_matcher()
-        self._cur_matched_ids.append(token_id)
-        return is_rule_done
-
-    def reset_matched_ids(self):
-        del self._cur_matched_ids[:]
-
-    def get_next_child(self) -> RuleNode:
-        '''
-        Increments the current child index and retrieves the relevant child of this rule node.
-        '''
-        self.cur_child_index += 1
-        # TODO I'm pretty sure we don't have to deal with navigating down this child's tree to the first branch...
-        # Also, we should make sure there's a plan for appending children to this rule's list of children so that this actually works.
-        return self[self.cur_child_index]
-    
-    def has_next_child(self) -> bool:
-        '''
-        Returns true if there is a next child.
-        '''
-        return self.cur_child_index + 1 < self.length
+        # Only matched tokens should be applied.
+        if parse_result.is_valid:
+            self._token_ids.append(token_id)
+            if self._token_matchers[parse_result.matched_matcher_index].matches_multiple():
+                # This matcher (new or old) matches multiple, so we need to save that we've already matched a token with it.
+                self._cur_multiple_matcher_has_match = True
+                self._matcher_index = parse_result.matched_matcher_index
+            else:
+                self._cur_multiple_matcher_has_match = False
+                # We only move the matcher index if we've confirmed that the matcher is complete.
+                # This matcher doesn't match multiple.
+                self._matcher_index = parse_result.matched_matcher_index + 1
+        
+@dataclass(frozen=True)
+class Grammar:
+    root_rule: List[TokenMatcher]
+    # Maps rule ids to the relevant token matchers.
+    rules: Dict[int, List[TokenMatcher]]
 
 class TransformerParser:
     def __init__(self, vocabulary: Vocabulary, grammar: Grammar):
@@ -170,16 +197,37 @@ class TransformerParser:
         self._grammar = grammar
         self.reset()
 
-    def test_token(self, token_id: int) -> ParseResult:
+    def test_token(self, token_id: int) -> List[ParseResult]:
         '''
-        This tests the provided token id against the current history of tokens in the parse tree. It will only account for the matching of the grammar and will return
-        results relating to the current matcher and whether the match is incomplete or not.
+        This tests the provided token id against the current history of tokens in the parse tree.
+        Returns the result of the current matcher and possibly a second result if a new rule node has been reached.
         '''
-        if token_id == SpecialTokenTypes.END_BRANCH:
-            # Check if an end branch completes the current RuleNode (for is_valid) and then move self._cur_rule_node up one node.
-            return EndRuleResult()
-        else:
-            return self._cur_rule_node.test_token(token_id)
+        # Design Note: We start at the current node and move along the parent nodes testing each of them for as long as they are maybe complete.
+        # If a rule node has been matched, then we stop.
+
+        results = []
+        done = False
+        target_rule_node = self._cur_rule_node
+        while not done:
+            result = target_rule_node.test_token(token_id)
+            results.append(result)
+
+            # If the token matched, then we're done.
+            if result.is_valid:
+                done = True
+            # If the token didn't match the current rule while that rule is maybe complete, then we can check the next rule.
+            # If the next rule is maybe complete, then we can continue checking the next rules until we've found a match.
+            elif target_rule_node.is_maybe_complete():
+                target_rule_node = target_rule_node.parent
+            # If the token didn't match and the rule node isn't maybe complete, then we're done.
+            else:
+                done = True
+
+        # If this token id is a rule id, then we should add a new rule result to the results so that the grammar rule can be added to the stack.
+        if results[-1].is_valid and token_id in self._grammar.rules:
+            results.append(NewRuleResult(True, token_id))
+
+        return results
         
     def get_next_possible_tokens(self) -> List[int]:
         '''
@@ -189,41 +237,36 @@ class TransformerParser:
         # We can get these tokens from the current matcher.
         pass
         
-    def apply_token(self, token_id: int, parse_result: Union[NewRuleResult, EndRuleResult, MatchResult]):
+    def apply_token(self, token_id: int, parse_results: List[ParseResult]):
         '''
         After testing to see if a token is valid and what matcher it applies to, this will save the token to the parse tree.
         This should be used when a valid token has been selected for the current beam and before a subsequent token is tested.
         '''
-        assert parse_result.is_valid
-        if (parse_result.type == ParseResultType.END_RULE_RESULT):
-            # The current rule node's matched_ids should be reset because that matcher has completed.
-            self._cur_rule_node.reset_matched_ids()
+        target_rule_node = self._cur_rule_node
+        # Parse results start at the current rule node and each successive one applies to the parent if it's a match result.
+        # New rule results will result in a new rule node being added to whatever is the target node in this loop.
+        for parse_result in parse_results:
+            if parse_result.type == ParseResultType.NEW_RULE_RESULT:
+                # Add the new rule as a child to the current rule node and set that new rule node as the current node.
+                new_node = GrammarRule(target_rule_node, parse_result.new_rule_id, self._grammar.rules[parse_result.new_rule_id])
 
-            # Move cur_rule_node to its parent because the current rule is done.
-            self._cur_rule_node = self._cur_rule_node.parent
-
-        elif (parse_result.type == ParseResultType.NEW_RULE_RESULT):
-            # The current rule node's matched_ids should be reset because that matcher has completed.
-            self._cur_rule_node.reset_matched_ids()
-
-            # Add the new rule as a child to the current rule node and set that new rule node as the current node.
-            new_node = RuleNode(self._cur_rule_node, parse_result.new_rule)
-            self._cur_rule_node.append(new_node)
-            self._cur_rule_node = new_node
-
-        else:
-            is_rule_done = self._cur_rule_node.apply_token(token_id, parse_result)
-            # TODO TODO TODO Are we sure that having the list of rules here is going to be possible? Our NEW_RULE_RESULT currently only provides a single rule that is appended to the
-            # current node. Maybe that should be a list? Or maybe we can simplify things by only dealing with a single rule instead of a list of children for each node.
-            if is_rule_done:
-                if self._cur_rule_node.parent != None and self._cur_rule_node.parent.has_next_child():
-                    next_node = self._cur_rule_node.parent.get_next_child()
+                # The new node should be added to the end of the current rule node.
+                target_rule_node.append(new_node)
+                self._cur_rule_node = new_node
+                break
+            elif parse_result.type == ParseResultType.MATCH_RESULT:
+                if parse_result.is_valid:
+                    target_rule_node.apply_token(token_id, parse_result)
+                    break
+                # Invalid results will be ignored because their rule nodes are maybe complete. In that case, we skip to the next
+                # parent node.
                 else:
-                    pass
-
+                    target_rule_node = self._cur_rule_node.parent
+            else:
+                raise Exception(f'Unsupported result type: {parse_result.type}')
 
     def reset(self):
         del self._rule_tree
         del self._cur_rule_node
-        self._rule_tree = RuleNode(None, self._grammar.get_root_rule())
+        self._rule_tree = GrammarRule(None, None, self._grammar.root_rule)
         self._cur_rule_node = self._rule_tree
