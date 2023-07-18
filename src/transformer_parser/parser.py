@@ -123,7 +123,7 @@ class RuleNode(ABC, list):
         # If the rest of the matchers are considered optional, then we'll say that this rule is maybe complete.
         for opt_matcher_index in range(start_matcher_index, len(self._token_matchers)):
             # Again, if the current multiple matcher has a match, then it is considered optional
-            if not self._token_matchers[opt_matcher_index].is_optional():
+            if not self._token_matchers[opt_matcher_index].is_optional() and not (opt_matcher_index == self._matcher_index and self._cur_multiple_matcher_has_match):
                 maybe_complete = False
                 break
         return maybe_complete
@@ -182,14 +182,13 @@ class GrammarRule(RuleNode):
         if parse_result.is_valid:
             self._token_ids.append(token_id)
             if self._token_matchers[parse_result.matched_matcher_index].matches_multiple():
-                # This matcher (new or old) matches multiple, so we need to save that we've already matched a token with it.
-                self._cur_multiple_matcher_has_match = True
                 self._matcher_index = parse_result.matched_matcher_index
             else:
-                self._cur_multiple_matcher_has_match = False
                 # We only move the matcher index if we've confirmed that the matcher is complete.
                 # This matcher doesn't match multiple.
                 self._matcher_index = parse_result.matched_matcher_index + 1
+            # If the matcher index hasn't changed and this matcher matches multiple tokens, then we save that state.
+            self._cur_multiple_matcher_has_match = self._matcher_index == parse_result.matched_matcher_index and self._token_matchers[parse_result.matched_matcher_index].matches_multiple()
         
 @dataclass(frozen=True)
 class Grammar:
@@ -272,7 +271,7 @@ class TransformerParser:
                 # Invalid results will be ignored because their rule nodes are maybe complete. In that case, we skip to the next
                 # parent node.
                 else:
-                    target_rule_node = self._cur_rule_node.parent
+                    target_rule_node = target_rule_node.parent
             else:
                 raise Exception(f'Unsupported result type: {parse_result.type}')
 
@@ -281,14 +280,17 @@ class TransformerParser:
         self._cur_rule_node = self._rule_tree
 
     def is_complete(self) -> CompletionType:
-        if self._cur_rule_node == None:
-            return CompletionType.COMPLETE
-        elif self._cur_rule_node.parent == None:
-            if self._cur_rule_node.is_complete():
-                return CompletionType.COMPLETE
-            elif self._cur_rule_node.is_maybe_complete(None):
-                return CompletionType.MAYBE_COMPLETE
-            else:
-                return CompletionType.INCOMPLETE
-        else:
-            return CompletionType.INCOMPLETE
+        # In order to check for completeness, we need to keep moving towards the root node and make sure all nodes are complete.
+        # A single incomplete node means the whole thing is incomplete and takes ultimate priority.
+        # A single maybe_complete node means the whole thing is maybe complete and takes priority over completeness.
+        # The tree is only complete when all nodes are complete.
+        is_complete = CompletionType.COMPLETE
+        target_node = self._cur_rule_node
+        while target_node != None:
+            if target_node.is_maybe_complete(None):
+                is_complete = CompletionType.MAYBE_COMPLETE
+            elif not target_node.is_complete():
+                is_complete = CompletionType.INCOMPLETE
+                break
+            target_node = target_node.parent
+        return is_complete
