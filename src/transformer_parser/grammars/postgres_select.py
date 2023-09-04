@@ -9,11 +9,7 @@ NUMBER_PATTERN = r"\d+\.?\d*"
 WORD_PATTERN = r"\w+"
 OPERATOR_PATTERN = r""
 
-
-
-
-
-def create_grammar(translator: TokenTranslator, special_token_ids: List[int]):
+def create_grammar(translator: TokenTranslator, special_token_ids: List[int]) -> None:
     int_regex = re.compile(INTEGER_PATTERN)
     int_token_ids = []
     number_regex = re.compile(NUMBER_PATTERN)

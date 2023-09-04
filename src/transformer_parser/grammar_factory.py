@@ -21,7 +21,7 @@ def load_grammar(filename: str) -> Grammar:
     assert root_rule_line is not None
     root_rule = build_matchers(root_rule_line)
 
-    other_rule_lines = filter(is_other_rule, rule_lines)
+    other_rule_lines = list(filter(is_other_rule, rule_lines))
     # TODO Figure out what the maximum number of special token ids we can use and subtract the offset for the first token.
     # TODO Figure out what the offset for the first special token should be.
     assert len(other_rule_lines) < 99
