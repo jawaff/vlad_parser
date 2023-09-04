@@ -47,7 +47,7 @@ class NewRuleResult(ParseResult):
         ParseResult.__init__(self, type=ParseResultType.NEW_RULE_RESULT, is_valid=is_valid)
         self.new_rule_id = new_rule_id
 
-    def __eq__(self, obj):
+    def __eq__(self, obj: object) -> bool:
         return isinstance(obj, NewRuleResult) and obj.is_valid == self.is_valid and obj.new_rule_id == self.new_rule_id
 
 class CompletionType(Enum):
@@ -63,19 +63,19 @@ class MatchResult(ParseResult):
 
     The completion flag will specify the state of the matching within the current rule.
     '''
-    cur_rule_id: int
+    cur_rule_id: Optional[int]
     matched_token_ids: List[int]
     matched_matcher_index: int
     rule_completion: CompletionType
 
-    def __init__(self, is_valid: bool, cur_rule_id: int, matched_token_ids: List[int], matched_matcher_index: int, rule_completion: CompletionType):
+    def __init__(self, is_valid: bool, cur_rule_id: Optional[int], matched_token_ids: List[int], matched_matcher_index: int, rule_completion: CompletionType):
         ParseResult.__init__(self, type=ParseResultType.MATCH_RESULT, is_valid=is_valid)
         self.cur_rule_id = cur_rule_id
         self.matched_token_ids = matched_token_ids
         self.matched_matcher_index = matched_matcher_index
         self.rule_completion = rule_completion
 
-    def __eq__(self, obj):
+    def __eq__(self, obj: object) -> bool:
         return isinstance(obj, MatchResult) \
             and obj.is_valid == self.is_valid \
             and obj.cur_rule_id == self.cur_rule_id \
@@ -83,10 +83,10 @@ class MatchResult(ParseResult):
             and obj.matched_matcher_index == self.matched_matcher_index \
             and obj.rule_completion == self.rule_completion
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f'MatchResult(is_valid={self.is_valid}, cur_rule_id={self.cur_rule_id}, matched_token_ids={self.matched_token_ids}, matched_matcher_index={self.matched_matcher_index}, rule_completion={self.rule_completion})'
     
-class RuleNode(ABC, list):
+class RuleNode(ABC, list): # type: ignore
     def __init__(self, parent: Optional[RuleNode], id: Optional[int], token_matchers: List[TokenMatcher]):
         # The list's contents will be the ordered child rule nodes.
         list.__init__(self, [])
@@ -106,7 +106,7 @@ class RuleNode(ABC, list):
         pass
     
     @abstractmethod
-    def apply_token(self, token_id: int, parse_result: MatchResult):
+    def apply_token(self, token_id: int, parse_result: MatchResult) -> None:
         pass
 
     def is_complete(self) -> bool:
@@ -121,7 +121,7 @@ class RuleNode(ABC, list):
 
         maybe_complete = True
         # If the rest of the matchers are considered optional, then we'll say that this rule is maybe complete.
-        for opt_matcher_index in range(start_matcher_index, len(self._token_matchers)):
+        for opt_matcher_index in range(start_matcher_index, len(self._token_matchers)): # type: ignore
             # Again, if the current multiple matcher has a match, then it is considered optional
             if not self._token_matchers[opt_matcher_index].is_optional() and not (opt_matcher_index == self._matcher_index and self._cur_multiple_matcher_has_match):
                 maybe_complete = False
@@ -175,7 +175,7 @@ class GrammarRule(RuleNode):
         return MatchResult(found_match, self.id, matched_token_ids, matched_matcher_index, completion)
 
 
-    def apply_token(self, token_id: int, parse_result: MatchResult):
+    def apply_token(self, token_id: int, parse_result: MatchResult) -> None:
         assert parse_result.type == ParseResultType.MATCH_RESULT
 
         # Only matched tokens should be applied.
@@ -199,6 +199,7 @@ class Grammar:
 class TransformerParser:
     def __init__(self, grammar: Grammar):
         self._grammar = grammar
+        self._cur_rule_node: Optional[RuleNode]
         self.reset()
 
     def test_token(self, token_id: int) -> List[ParseResult]:
@@ -212,8 +213,8 @@ class TransformerParser:
         results = []
         done = False
         target_rule_node = self._cur_rule_node
-        while not done:
-            result = target_rule_node.test_token(token_id)
+        while not done and target_rule_node != None:
+            result = target_rule_node.test_token(token_id) # type: ignore[union-attr]
             results.append(result)
 
             # If the token matched, then we're done.
@@ -221,8 +222,8 @@ class TransformerParser:
                 done = True
             # If the token didn't match the current rule while that rule is maybe complete, then we can check the next rule.
             # If the next rule is maybe complete, then we can continue checking the next rules until we've found a match.
-            elif target_rule_node.is_maybe_complete(None):
-                target_rule_node = target_rule_node.parent
+            elif target_rule_node.is_maybe_complete(None): # type: ignore[union-attr]
+                target_rule_node = target_rule_node.parent # type: ignore[union-attr]
             # If the token didn't match and the rule node isn't maybe complete, then we're done.
             else:
                 done = True
@@ -239,43 +240,46 @@ class TransformerParser:
         This could be used to restrict the vocabulary to help train a transformer to only take into consideration the valid tokens.
         '''
         # We can get these tokens from the current matcher.
-        pass
+        # TODO
+        return []
         
-    def apply_token(self, token_id: int, parse_results: List[ParseResult]):
+    def apply_token(self, token_id: int, parse_results: List[Union[NewRuleResult, MatchResult]]) -> None:
         '''
         After testing to see if a token is valid and what matcher it applies to, this will save the token to the parse tree.
         This should be used when a valid token has been selected for the current beam and before a subsequent token is tested.
         '''
+        if self._cur_rule_node == None:
+            return
         target_rule_node = self._cur_rule_node
         # Parse results start at the current rule node and each successive one applies to the parent if it's a match result.
         # New rule results will result in a new rule node being added to whatever is the target node in this loop.
         for index, parse_result in enumerate(parse_results):
             if parse_result.type == ParseResultType.NEW_RULE_RESULT:
                 # Add the new rule as a child to the current rule node and set that new rule node as the current node.
-                new_node = GrammarRule(target_rule_node, parse_result.new_rule_id, self._grammar.rules[parse_result.new_rule_id])
+                new_node = GrammarRule(target_rule_node, parse_result.new_rule_id, self._grammar.rules[parse_result.new_rule_id]) # type: ignore
 
                 # The new node should be added to the end of the current rule node.
-                target_rule_node.append(new_node)
+                target_rule_node.append(new_node) # type: ignore[union-attr]
                 self._cur_rule_node = new_node
                 break
             elif parse_result.type == ParseResultType.MATCH_RESULT:
                 if parse_result.is_valid:
-                    target_rule_node.apply_token(token_id, parse_result)
+                    target_rule_node.apply_token(token_id, parse_result) # type: ignore
                     # If we've completed the current rule and this is the last match result, then we go down the parent tree until we find an incomplete rule or None.
                     # We can't do this if the next result is a new rule result, because that one will be added to the current rule node.
                     if index == len(parse_results) - 1:
-                        while target_rule_node != None and target_rule_node.is_complete():
-                            target_rule_node = target_rule_node.parent
+                        while target_rule_node != None and target_rule_node.is_complete(): # type: ignore[union-attr]
+                            target_rule_node = target_rule_node.parent # type: ignore[union-attr]
                         # The next incomplete rule node will be our current rule node.
                         self._cur_rule_node = target_rule_node
                 # Invalid results will be ignored because their rule nodes are maybe complete. In that case, we skip to the next
                 # parent node.
                 else:
-                    target_rule_node = target_rule_node.parent
+                    target_rule_node = target_rule_node.parent # type: ignore[union-attr]
             else:
                 raise Exception(f'Unsupported result type: {parse_result.type}')
 
-    def reset(self):
+    def reset(self) -> None:
         self._rule_tree = GrammarRule(None, None, self._grammar.root_rule)
         self._cur_rule_node = self._rule_tree
 
@@ -287,10 +291,10 @@ class TransformerParser:
         is_complete = CompletionType.COMPLETE
         target_node = self._cur_rule_node
         while target_node != None:
-            if target_node.is_maybe_complete(None):
+            if target_node.is_maybe_complete(None): # type: ignore[union-attr]
                 is_complete = CompletionType.MAYBE_COMPLETE
-            elif not target_node.is_complete():
+            elif not target_node.is_complete(): # type: ignore[union-attr]
                 is_complete = CompletionType.INCOMPLETE
                 break
-            target_node = target_node.parent
+            target_node = target_node.parent # type: ignore[union-attr]
         return is_complete
