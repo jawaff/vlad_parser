@@ -6,6 +6,12 @@ options {
 
 import vladlexbasic;
 
+// Standard set of fragments
+tokens {
+    FRAGMENT_REF,
+    RULE_REF
+}
+
 channels {
     COMMENT
 }

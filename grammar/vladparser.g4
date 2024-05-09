@@ -7,9 +7,9 @@ options {
 // --------------------
 // Main Rule Defs
 
-tokenRule: ID COLON ruleBlock SEMI;
-specialRule: SPECIAL ID COLON ruleBlock SEMI;
-fragmentRule: FRAGMENT ID COLON lexerRuleBlock SEMI;
+tokenRule: RULE_REF COLON ruleBlock SEMI;
+specialRule: SPECIAL RULE_REF COLON ruleBlock SEMI;
+fragmentRule: FRAGMENT FRAGMENT_REF COLON lexerRuleBlock SEMI;
 
 ruleBlock
     : STRING_LITERAL ruleAltList
@@ -69,7 +69,8 @@ ebnfSuffix
     ;
 
 lexerAtom
-    : terminalDef
+    : characterRange
+    | terminalDef
     | notSet
     ;
 
@@ -91,7 +92,7 @@ blockSet
     ;
 
 setElement
-    : ID
+    : FRAGMENT_REF
     | STRING_LITERAL
     | characterRange
     ;
@@ -99,7 +100,7 @@ setElement
 // ----------------
 // Parser rule ref
 ruleref
-    : ID
+    : RULE_REF
     ;
 
 // -------------
@@ -115,6 +116,6 @@ characterRange
     ;
 
 terminalDef
-    : ID
+    : FRAGMENT_REF
     | STRING_LITERAL
     ;
