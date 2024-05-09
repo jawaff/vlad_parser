@@ -1,7 +1,7 @@
 import unittest
 
-from transformer_parser.parser import TransformerParser, Grammar, ParseResult, NewRuleResult, MatchResult, ParseResultType, CompletionType
-from transformer_parser.token_matchers import LiteralTokenMatcher
+from vlad.parser import TransformerParser, Grammar, ParseResult, NewRuleResult, MatchResult, ParseResultType, CompletionType
+from vlad.parser.matchers import LiteralTokenMatcher
 
 
 class TestParser(unittest.TestCase):

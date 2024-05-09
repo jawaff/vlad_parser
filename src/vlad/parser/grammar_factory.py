@@ -23,12 +23,8 @@ def load_grammar(filename: str) -> Grammar:
 
     other_rule_lines = list(filter(is_other_rule, rule_lines))
     # TODO Figure out what the maximum number of special token ids we can use and subtract the offset for the first token.
-    # TODO Figure out what the offset for the first special token should be.
-    assert len(other_rule_lines) < 99
-
+    # TODO Figure outranslator
     # There needs to be a certain offset that we use for the first rule's token id.
     other_rules = {i+2: build_matchers(other_rule_lines[i]) for i in range(0, len(other_rule_lines))}
 
     return Grammar(root_rule, other_rules)
-
-    

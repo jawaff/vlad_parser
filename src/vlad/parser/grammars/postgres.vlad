@@ -1,0 +1,45 @@
+/*
+ * There are 3 types of rules below:
+ * standard - Must start with a string literal (used as the rule id and should be unique/unambiguous with other rules).
+ * This rule is generally for defining what comes after a keyword.
+ * special - Must start with a string literal like the standard rule, but this literal will be a special
+ * token in the transformer vocabulary, meaning that it will be decoded as an empty string and only used for
+ * informational purposes during generation.
+ * fragment - Represents a part of a rule that cannot exist on its own.
+ * [token] - Specifies that the IDENTIFIER should be used as a literal token that
+ * expects the associated rule structure.
+ * [literal] - Specifies a matcher for a token. Matchers are constrained by what they can
+ * include. They basically represent a single token literal. You may provide a single list of 
+ * possible tokens with the entire matcher being flagged as optional and/or repeatable.
+ * [special_token] - Specifies the IDENTIFIER should be used as a special token that
+ * expects the associated rule structure. Special tokens will not appear in the decoded output
+ * of the transformer, so will only be for informational purposes.
+ * [regex] - Used to loosely define which tokens are valid. The regular expression provided
+ * should be used like a literal, except the expression determines what kind of tokens are valid.
+ */
+
+// TODO How do we express spacing and lack of spacing?
+// TODO How do we detect whether extra space tokens are even necessary for the expected text?
+
+
+fragment NAME : r'[a-zA-Z0-9\-_]+'+;
+fragment STAR : '*';
+fragment COMMA : ',';
+fragment PERIOD : '.';
+fragment CONDITION_DELIMITER : 'AND' | 'OR';
+
+// Special note for the grammar factory. All rules inside of parenthesis will result in an
+// implicit special_token rule.
+SELECT : 'SELECT' (STAR | COLUMNS) FROM;
+special COLUMNS : '<COLUMNS>' COLUMN (',' COLUMN)*;
+// It's beneficial to make certain special tokens that are shared throughout the grammar
+// if the associated places represent the same data.
+special COLUMN : '<COLUMN>' TABLE_ALIAS? NAME ALIAS?;
+special ALIAS : '<ALIAS>' NAME;
+special TABLE_ALIAS : '<TABLE_ALIAS>' NAME PERIOD;
+FROM : 'FROM' TABLE (',' TABLE)*;
+special TABLE : '<TABLE>' NAME ALIAS?;
+// WHERE : 'WHERE' CONDITION (CONDITION_DELIMITER CONDITION)*;
+
+// TODO Finish, this is where I stopped.
+// CONDITION [special_token] : ;

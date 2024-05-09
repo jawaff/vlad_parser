@@ -154,6 +154,7 @@ class GrammarRule(RuleNode):
                 continue
             # If we're still on the first matcher and this multiple matcher already has a match, then we can move to the next matcher to check for a match.
             # TODO The matches multiple check may not be necessary due to cur_multiple_matcher_has_match only being true for multiple matchers.
+            # Not so sure about this todo, since the for loop spans different matchers and that variable is only for the current matcher.
             elif matcher_index == self._matcher_index and self._cur_multiple_matcher_has_match and self._token_matchers[matcher_index].matches_multiple():
                 continue
         
