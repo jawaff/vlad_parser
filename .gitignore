@@ -140,4 +140,4 @@ cython_debug/
 .antlr/
 .mypy_cache/
 .tox/
-.vscode
+.vscode/
