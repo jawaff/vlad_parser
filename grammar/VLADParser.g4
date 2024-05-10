@@ -1,7 +1,7 @@
-parser grammar vladparser;
+parser grammar VLADParser;
 
 options {
-    tokenVocab = vladlexer;
+    tokenVocab = VLADLexer;
 }
 
 // --------------------

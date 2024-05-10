@@ -1,4 +1,4 @@
-# Generated from ./grammar/vladlexer.g4 by ANTLR 4.13.1
+# Generated from ./grammar/VLADLexer.g4 by ANTLR 4.13.1
 from antlr4 import *
 from io import StringIO
 import sys
@@ -183,7 +183,7 @@ def serializedATN():
         2,0,6,0,0,0,1,0
     ]
 
-class vladlexer(LexerAdaptor):
+class VLADLexer(LexerAdaptor):
 
     atn = ATNDeserializer().deserialize(serializedATN())
 
@@ -260,7 +260,7 @@ class vladlexer(LexerAdaptor):
                   "Star", "Plus", "PlusAssign", "Underscore", "Pipe", "Dollar", 
                   "Comma", "Semi", "Dot", "Range", "At", "Pound", "Tilde" ]
 
-    grammarFileName = "vladlexer.g4"
+    grammarFileName = "VLADLexer.g4"
 
     def __init__(self, input=None, output:TextIO = sys.stdout):
         super().__init__(input, output)

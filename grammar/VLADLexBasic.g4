@@ -1,4 +1,4 @@
-lexer grammar vladlexbasic;
+lexer grammar VLADLexBasic;
 
 // ======================================================
 // Lexer fragments

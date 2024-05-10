@@ -1,7 +1,7 @@
 import unittest
 import random
 
-from vlad.parser.matchers import LiteralTokenMatcher
+from vlad_parser.matchers import LiteralTokenMatcher
 
 
 class TestTokenMatchers(unittest.TestCase):

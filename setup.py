@@ -4,18 +4,18 @@ with open('README.md', 'r', encoding='utf-8') as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name='transformer_parser',
+    name='vlad_parser',
     author='Jacob Waffle',
     author_email='',
     description='A parser that specializes in parsing the output of an auto-regressive transformer for a constrained decoder.',
     keywords='peg, parser, transformer',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    url='https://github.com/jawaff/transformer_parser',
+    url='https://github.com/jawaff/vlad_parser',
     project_urls={
-        'Documentation': 'https://github.com/jawaff/transformer_parser',
-        'Bug Reports': 'https://github.com/jawaff/transformer_parser/issues',
-        'Source Code': 'https://github.com/jawaff/transformer_parser',
+        'Documentation': 'https://github.com/jawaff/vlad_parser',
+        'Bug Reports': 'https://github.com/jawaff/vlad_parser/issues',
+        'Source Code': 'https://github.com/jawaff/vlad_parser',
         # 'Funding': '',
         # 'Say Thanks!': '',
     },
@@ -45,8 +45,8 @@ setuptools.setup(
     },
     # entry_points={
     #     'console_scripts': [  # This can provide executable scripts
-    #         'run=transformer_parser:main',
-    # You can execute `run` in bash to run `main()` in src/transformer_parser/__init__.py
+    #         'run=vlad_parser:main',
+    # You can execute `run` in bash to run `main()` in src/vlad_parser/__init__.py
     #     ],
     # },
 )

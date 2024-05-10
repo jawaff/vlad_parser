@@ -1,8 +1,8 @@
 from typing import List
 import re
-from vlad.parser import Grammar
-from vlad.parser.matchers import LiteralTokenMatcher
-from vlad.parser.translator import TokenTranslator
+from vlad_parser import Grammar
+from vlad_parser.matchers import LiteralTokenMatcher
+from vlad_parser.translator import TokenTranslator
 
 INTEGER_PATTERN = r"\d+"
 NUMBER_PATTERN = r"\d+\.?\d*"

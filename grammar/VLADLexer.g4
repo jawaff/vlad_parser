@@ -1,10 +1,10 @@
-lexer grammar vladlexer;
+lexer grammar VLADLexer;
 
 options {
     superClass = LexerAdaptor;
 }
 
-import vladlexbasic;
+import VLADLexBasic;
 
 // Standard set of fragments
 tokens {

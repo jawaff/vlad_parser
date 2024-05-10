@@ -1,7 +1,7 @@
 # This is for investigation purposes...
 
 import unittest
-from vlad.parser.translator import TokenTranslator
+from vlad_parser.translator import TokenTranslator
 
 
 class TestTokenTranslator(unittest.TestCase):

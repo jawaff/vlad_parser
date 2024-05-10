@@ -1,4 +1,4 @@
-# Generated from ./grammar/vladparser.g4 by ANTLR 4.13.1
+# Generated from ./grammar/VLADParser.g4 by ANTLR 4.13.1
 # encoding: utf-8
 from antlr4 import *
 from io import StringIO
@@ -72,9 +72,9 @@ def serializedATN():
         157,165
     ]
 
-class vladparser ( Parser ):
+class VLADParser ( Parser ):
 
-    grammarFileName = "vladparser.g4"
+    grammarFileName = "VLADParser.g4"
 
     atn = ATNDeserializer().deserialize(serializedATN())
 
@@ -182,20 +182,20 @@ class vladparser ( Parser ):
             self.parser = parser
 
         def RULE_REF(self):
-            return self.getToken(vladparser.RULE_REF, 0)
+            return self.getToken(VLADParser.RULE_REF, 0)
 
         def COLON(self):
-            return self.getToken(vladparser.COLON, 0)
+            return self.getToken(VLADParser.COLON, 0)
 
         def ruleBlock(self):
-            return self.getTypedRuleContext(vladparser.RuleBlockContext,0)
+            return self.getTypedRuleContext(VLADParser.RuleBlockContext,0)
 
 
         def SEMI(self):
-            return self.getToken(vladparser.SEMI, 0)
+            return self.getToken(VLADParser.SEMI, 0)
 
         def getRuleIndex(self):
-            return vladparser.RULE_tokenRule
+            return VLADParser.RULE_tokenRule
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterTokenRule" ):
@@ -210,18 +210,18 @@ class vladparser ( Parser ):
 
     def tokenRule(self):
 
-        localctx = vladparser.TokenRuleContext(self, self._ctx, self.state)
+        localctx = VLADParser.TokenRuleContext(self, self._ctx, self.state)
         self.enterRule(localctx, 0, self.RULE_tokenRule)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 46
-            self.match(vladparser.RULE_REF)
+            self.match(VLADParser.RULE_REF)
             self.state = 47
-            self.match(vladparser.COLON)
+            self.match(VLADParser.COLON)
             self.state = 48
             self.ruleBlock()
             self.state = 49
-            self.match(vladparser.SEMI)
+            self.match(VLADParser.SEMI)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -239,23 +239,23 @@ class vladparser ( Parser ):
             self.parser = parser
 
         def SPECIAL(self):
-            return self.getToken(vladparser.SPECIAL, 0)
+            return self.getToken(VLADParser.SPECIAL, 0)
 
         def RULE_REF(self):
-            return self.getToken(vladparser.RULE_REF, 0)
+            return self.getToken(VLADParser.RULE_REF, 0)
 
         def COLON(self):
-            return self.getToken(vladparser.COLON, 0)
+            return self.getToken(VLADParser.COLON, 0)
 
         def ruleBlock(self):
-            return self.getTypedRuleContext(vladparser.RuleBlockContext,0)
+            return self.getTypedRuleContext(VLADParser.RuleBlockContext,0)
 
 
         def SEMI(self):
-            return self.getToken(vladparser.SEMI, 0)
+            return self.getToken(VLADParser.SEMI, 0)
 
         def getRuleIndex(self):
-            return vladparser.RULE_specialRule
+            return VLADParser.RULE_specialRule
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterSpecialRule" ):
@@ -270,20 +270,20 @@ class vladparser ( Parser ):
 
     def specialRule(self):
 
-        localctx = vladparser.SpecialRuleContext(self, self._ctx, self.state)
+        localctx = VLADParser.SpecialRuleContext(self, self._ctx, self.state)
         self.enterRule(localctx, 2, self.RULE_specialRule)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 51
-            self.match(vladparser.SPECIAL)
+            self.match(VLADParser.SPECIAL)
             self.state = 52
-            self.match(vladparser.RULE_REF)
+            self.match(VLADParser.RULE_REF)
             self.state = 53
-            self.match(vladparser.COLON)
+            self.match(VLADParser.COLON)
             self.state = 54
             self.ruleBlock()
             self.state = 55
-            self.match(vladparser.SEMI)
+            self.match(VLADParser.SEMI)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -301,23 +301,23 @@ class vladparser ( Parser ):
             self.parser = parser
 
         def FRAGMENT(self):
-            return self.getToken(vladparser.FRAGMENT, 0)
+            return self.getToken(VLADParser.FRAGMENT, 0)
 
         def FRAGMENT_REF(self):
-            return self.getToken(vladparser.FRAGMENT_REF, 0)
+            return self.getToken(VLADParser.FRAGMENT_REF, 0)
 
         def COLON(self):
-            return self.getToken(vladparser.COLON, 0)
+            return self.getToken(VLADParser.COLON, 0)
 
         def lexerRuleBlock(self):
-            return self.getTypedRuleContext(vladparser.LexerRuleBlockContext,0)
+            return self.getTypedRuleContext(VLADParser.LexerRuleBlockContext,0)
 
 
         def SEMI(self):
-            return self.getToken(vladparser.SEMI, 0)
+            return self.getToken(VLADParser.SEMI, 0)
 
         def getRuleIndex(self):
-            return vladparser.RULE_fragmentRule
+            return VLADParser.RULE_fragmentRule
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterFragmentRule" ):
@@ -332,20 +332,20 @@ class vladparser ( Parser ):
 
     def fragmentRule(self):
 
-        localctx = vladparser.FragmentRuleContext(self, self._ctx, self.state)
+        localctx = VLADParser.FragmentRuleContext(self, self._ctx, self.state)
         self.enterRule(localctx, 4, self.RULE_fragmentRule)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 57
-            self.match(vladparser.FRAGMENT)
+            self.match(VLADParser.FRAGMENT)
             self.state = 58
-            self.match(vladparser.FRAGMENT_REF)
+            self.match(VLADParser.FRAGMENT_REF)
             self.state = 59
-            self.match(vladparser.COLON)
+            self.match(VLADParser.COLON)
             self.state = 60
             self.lexerRuleBlock()
             self.state = 61
-            self.match(vladparser.SEMI)
+            self.match(VLADParser.SEMI)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -363,14 +363,14 @@ class vladparser ( Parser ):
             self.parser = parser
 
         def STRING_LITERAL(self):
-            return self.getToken(vladparser.STRING_LITERAL, 0)
+            return self.getToken(VLADParser.STRING_LITERAL, 0)
 
         def ruleAltList(self):
-            return self.getTypedRuleContext(vladparser.RuleAltListContext,0)
+            return self.getTypedRuleContext(VLADParser.RuleAltListContext,0)
 
 
         def getRuleIndex(self):
-            return vladparser.RULE_ruleBlock
+            return VLADParser.RULE_ruleBlock
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterRuleBlock" ):
@@ -385,12 +385,12 @@ class vladparser ( Parser ):
 
     def ruleBlock(self):
 
-        localctx = vladparser.RuleBlockContext(self, self._ctx, self.state)
+        localctx = VLADParser.RuleBlockContext(self, self._ctx, self.state)
         self.enterRule(localctx, 6, self.RULE_ruleBlock)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 63
-            self.match(vladparser.STRING_LITERAL)
+            self.match(VLADParser.STRING_LITERAL)
             self.state = 64
             self.ruleAltList()
         except RecognitionException as re:
@@ -411,19 +411,19 @@ class vladparser ( Parser ):
 
         def alternative(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(vladparser.AlternativeContext)
+                return self.getTypedRuleContexts(VLADParser.AlternativeContext)
             else:
-                return self.getTypedRuleContext(vladparser.AlternativeContext,i)
+                return self.getTypedRuleContext(VLADParser.AlternativeContext,i)
 
 
         def OR(self, i:int=None):
             if i is None:
-                return self.getTokens(vladparser.OR)
+                return self.getTokens(VLADParser.OR)
             else:
-                return self.getToken(vladparser.OR, i)
+                return self.getToken(VLADParser.OR, i)
 
         def getRuleIndex(self):
-            return vladparser.RULE_ruleAltList
+            return VLADParser.RULE_ruleAltList
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterRuleAltList" ):
@@ -438,7 +438,7 @@ class vladparser ( Parser ):
 
     def ruleAltList(self):
 
-        localctx = vladparser.RuleAltListContext(self, self._ctx, self.state)
+        localctx = VLADParser.RuleAltListContext(self, self._ctx, self.state)
         self.enterRule(localctx, 8, self.RULE_ruleAltList)
         self._la = 0 # Token type
         try:
@@ -450,7 +450,7 @@ class vladparser ( Parser ):
             _la = self._input.LA(1)
             while _la==28:
                 self.state = 67
-                self.match(vladparser.OR)
+                self.match(VLADParser.OR)
                 self.state = 68
                 self.alternative()
                 self.state = 73
@@ -474,11 +474,11 @@ class vladparser ( Parser ):
             self.parser = parser
 
         def lexerAltList(self):
-            return self.getTypedRuleContext(vladparser.LexerAltListContext,0)
+            return self.getTypedRuleContext(VLADParser.LexerAltListContext,0)
 
 
         def getRuleIndex(self):
-            return vladparser.RULE_lexerRuleBlock
+            return VLADParser.RULE_lexerRuleBlock
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterLexerRuleBlock" ):
@@ -493,7 +493,7 @@ class vladparser ( Parser ):
 
     def lexerRuleBlock(self):
 
-        localctx = vladparser.LexerRuleBlockContext(self, self._ctx, self.state)
+        localctx = VLADParser.LexerRuleBlockContext(self, self._ctx, self.state)
         self.enterRule(localctx, 10, self.RULE_lexerRuleBlock)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -517,19 +517,19 @@ class vladparser ( Parser ):
 
         def lexerAlt(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(vladparser.LexerAltContext)
+                return self.getTypedRuleContexts(VLADParser.LexerAltContext)
             else:
-                return self.getTypedRuleContext(vladparser.LexerAltContext,i)
+                return self.getTypedRuleContext(VLADParser.LexerAltContext,i)
 
 
         def OR(self, i:int=None):
             if i is None:
-                return self.getTokens(vladparser.OR)
+                return self.getTokens(VLADParser.OR)
             else:
-                return self.getToken(vladparser.OR, i)
+                return self.getToken(VLADParser.OR, i)
 
         def getRuleIndex(self):
-            return vladparser.RULE_lexerAltList
+            return VLADParser.RULE_lexerAltList
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterLexerAltList" ):
@@ -544,7 +544,7 @@ class vladparser ( Parser ):
 
     def lexerAltList(self):
 
-        localctx = vladparser.LexerAltListContext(self, self._ctx, self.state)
+        localctx = VLADParser.LexerAltListContext(self, self._ctx, self.state)
         self.enterRule(localctx, 12, self.RULE_lexerAltList)
         self._la = 0 # Token type
         try:
@@ -556,7 +556,7 @@ class vladparser ( Parser ):
             _la = self._input.LA(1)
             while _la==28:
                 self.state = 77
-                self.match(vladparser.OR)
+                self.match(VLADParser.OR)
                 self.state = 78
                 self.lexerAlt()
                 self.state = 83
@@ -581,13 +581,13 @@ class vladparser ( Parser ):
 
         def lexerElement(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(vladparser.LexerElementContext)
+                return self.getTypedRuleContexts(VLADParser.LexerElementContext)
             else:
-                return self.getTypedRuleContext(vladparser.LexerElementContext,i)
+                return self.getTypedRuleContext(VLADParser.LexerElementContext,i)
 
 
         def getRuleIndex(self):
-            return vladparser.RULE_lexerAlt
+            return VLADParser.RULE_lexerAlt
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterLexerAlt" ):
@@ -602,7 +602,7 @@ class vladparser ( Parser ):
 
     def lexerAlt(self):
 
-        localctx = vladparser.LexerAltContext(self, self._ctx, self.state)
+        localctx = VLADParser.LexerAltContext(self, self._ctx, self.state)
         self.enterRule(localctx, 14, self.RULE_lexerAlt)
         self._la = 0 # Token type
         try:
@@ -648,19 +648,19 @@ class vladparser ( Parser ):
             self.parser = parser
 
         def lexerAtom(self):
-            return self.getTypedRuleContext(vladparser.LexerAtomContext,0)
+            return self.getTypedRuleContext(VLADParser.LexerAtomContext,0)
 
 
         def ebnfSuffix(self):
-            return self.getTypedRuleContext(vladparser.EbnfSuffixContext,0)
+            return self.getTypedRuleContext(VLADParser.EbnfSuffixContext,0)
 
 
         def lexerBlock(self):
-            return self.getTypedRuleContext(vladparser.LexerBlockContext,0)
+            return self.getTypedRuleContext(VLADParser.LexerBlockContext,0)
 
 
         def getRuleIndex(self):
-            return vladparser.RULE_lexerElement
+            return VLADParser.RULE_lexerElement
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterLexerElement" ):
@@ -675,7 +675,7 @@ class vladparser ( Parser ):
 
     def lexerElement(self):
 
-        localctx = vladparser.LexerElementContext(self, self._ctx, self.state)
+        localctx = VLADParser.LexerElementContext(self, self._ctx, self.state)
         self.enterRule(localctx, 16, self.RULE_lexerElement)
         self._la = 0 # Token type
         try:
@@ -728,17 +728,17 @@ class vladparser ( Parser ):
             self.parser = parser
 
         def LPAREN(self):
-            return self.getToken(vladparser.LPAREN, 0)
+            return self.getToken(VLADParser.LPAREN, 0)
 
         def lexerAltList(self):
-            return self.getTypedRuleContext(vladparser.LexerAltListContext,0)
+            return self.getTypedRuleContext(VLADParser.LexerAltListContext,0)
 
 
         def RPAREN(self):
-            return self.getToken(vladparser.RPAREN, 0)
+            return self.getToken(VLADParser.RPAREN, 0)
 
         def getRuleIndex(self):
-            return vladparser.RULE_lexerBlock
+            return VLADParser.RULE_lexerBlock
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterLexerBlock" ):
@@ -753,16 +753,16 @@ class vladparser ( Parser ):
 
     def lexerBlock(self):
 
-        localctx = vladparser.LexerBlockContext(self, self._ctx, self.state)
+        localctx = VLADParser.LexerBlockContext(self, self._ctx, self.state)
         self.enterRule(localctx, 18, self.RULE_lexerBlock)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 102
-            self.match(vladparser.LPAREN)
+            self.match(VLADParser.LPAREN)
             self.state = 103
             self.lexerAltList()
             self.state = 104
-            self.match(vladparser.RPAREN)
+            self.match(VLADParser.RPAREN)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -781,19 +781,19 @@ class vladparser ( Parser ):
 
         def alternative(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(vladparser.AlternativeContext)
+                return self.getTypedRuleContexts(VLADParser.AlternativeContext)
             else:
-                return self.getTypedRuleContext(vladparser.AlternativeContext,i)
+                return self.getTypedRuleContext(VLADParser.AlternativeContext,i)
 
 
         def OR(self, i:int=None):
             if i is None:
-                return self.getTokens(vladparser.OR)
+                return self.getTokens(VLADParser.OR)
             else:
-                return self.getToken(vladparser.OR, i)
+                return self.getToken(VLADParser.OR, i)
 
         def getRuleIndex(self):
-            return vladparser.RULE_altList
+            return VLADParser.RULE_altList
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterAltList" ):
@@ -808,7 +808,7 @@ class vladparser ( Parser ):
 
     def altList(self):
 
-        localctx = vladparser.AltListContext(self, self._ctx, self.state)
+        localctx = VLADParser.AltListContext(self, self._ctx, self.state)
         self.enterRule(localctx, 20, self.RULE_altList)
         self._la = 0 # Token type
         try:
@@ -820,7 +820,7 @@ class vladparser ( Parser ):
             _la = self._input.LA(1)
             while _la==28:
                 self.state = 107
-                self.match(vladparser.OR)
+                self.match(VLADParser.OR)
                 self.state = 108
                 self.alternative()
                 self.state = 113
@@ -845,13 +845,13 @@ class vladparser ( Parser ):
 
         def element(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(vladparser.ElementContext)
+                return self.getTypedRuleContexts(VLADParser.ElementContext)
             else:
-                return self.getTypedRuleContext(vladparser.ElementContext,i)
+                return self.getTypedRuleContext(VLADParser.ElementContext,i)
 
 
         def getRuleIndex(self):
-            return vladparser.RULE_alternative
+            return VLADParser.RULE_alternative
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterAlternative" ):
@@ -866,7 +866,7 @@ class vladparser ( Parser ):
 
     def alternative(self):
 
-        localctx = vladparser.AlternativeContext(self, self._ctx, self.state)
+        localctx = VLADParser.AlternativeContext(self, self._ctx, self.state)
         self.enterRule(localctx, 22, self.RULE_alternative)
         self._la = 0 # Token type
         try:
@@ -912,19 +912,19 @@ class vladparser ( Parser ):
             self.parser = parser
 
         def atom(self):
-            return self.getTypedRuleContext(vladparser.AtomContext,0)
+            return self.getTypedRuleContext(VLADParser.AtomContext,0)
 
 
         def ebnfSuffix(self):
-            return self.getTypedRuleContext(vladparser.EbnfSuffixContext,0)
+            return self.getTypedRuleContext(VLADParser.EbnfSuffixContext,0)
 
 
         def block(self):
-            return self.getTypedRuleContext(vladparser.BlockContext,0)
+            return self.getTypedRuleContext(VLADParser.BlockContext,0)
 
 
         def getRuleIndex(self):
-            return vladparser.RULE_element
+            return VLADParser.RULE_element
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterElement" ):
@@ -939,7 +939,7 @@ class vladparser ( Parser ):
 
     def element(self):
 
-        localctx = vladparser.ElementContext(self, self._ctx, self.state)
+        localctx = VLADParser.ElementContext(self, self._ctx, self.state)
         self.enterRule(localctx, 24, self.RULE_element)
         self._la = 0 # Token type
         try:
@@ -996,16 +996,16 @@ class vladparser ( Parser ):
             self.parser = parser
 
         def QUESTION(self):
-            return self.getToken(vladparser.QUESTION, 0)
+            return self.getToken(VLADParser.QUESTION, 0)
 
         def STAR(self):
-            return self.getToken(vladparser.STAR, 0)
+            return self.getToken(VLADParser.STAR, 0)
 
         def PLUS(self):
-            return self.getToken(vladparser.PLUS, 0)
+            return self.getToken(VLADParser.PLUS, 0)
 
         def getRuleIndex(self):
-            return vladparser.RULE_ebnfSuffix
+            return VLADParser.RULE_ebnfSuffix
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterEbnfSuffix" ):
@@ -1020,7 +1020,7 @@ class vladparser ( Parser ):
 
     def ebnfSuffix(self):
 
-        localctx = vladparser.EbnfSuffixContext(self, self._ctx, self.state)
+        localctx = VLADParser.EbnfSuffixContext(self, self._ctx, self.state)
         self.enterRule(localctx, 26, self.RULE_ebnfSuffix)
         self._la = 0 # Token type
         try:
@@ -1049,19 +1049,19 @@ class vladparser ( Parser ):
             self.parser = parser
 
         def characterRange(self):
-            return self.getTypedRuleContext(vladparser.CharacterRangeContext,0)
+            return self.getTypedRuleContext(VLADParser.CharacterRangeContext,0)
 
 
         def terminalDef(self):
-            return self.getTypedRuleContext(vladparser.TerminalDefContext,0)
+            return self.getTypedRuleContext(VLADParser.TerminalDefContext,0)
 
 
         def notSet(self):
-            return self.getTypedRuleContext(vladparser.NotSetContext,0)
+            return self.getTypedRuleContext(VLADParser.NotSetContext,0)
 
 
         def getRuleIndex(self):
-            return vladparser.RULE_lexerAtom
+            return VLADParser.RULE_lexerAtom
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterLexerAtom" ):
@@ -1076,7 +1076,7 @@ class vladparser ( Parser ):
 
     def lexerAtom(self):
 
-        localctx = vladparser.LexerAtomContext(self, self._ctx, self.state)
+        localctx = VLADParser.LexerAtomContext(self, self._ctx, self.state)
         self.enterRule(localctx, 28, self.RULE_lexerAtom)
         try:
             self.state = 138
@@ -1118,19 +1118,19 @@ class vladparser ( Parser ):
             self.parser = parser
 
         def terminalDef(self):
-            return self.getTypedRuleContext(vladparser.TerminalDefContext,0)
+            return self.getTypedRuleContext(VLADParser.TerminalDefContext,0)
 
 
         def ruleref(self):
-            return self.getTypedRuleContext(vladparser.RulerefContext,0)
+            return self.getTypedRuleContext(VLADParser.RulerefContext,0)
 
 
         def notSet(self):
-            return self.getTypedRuleContext(vladparser.NotSetContext,0)
+            return self.getTypedRuleContext(VLADParser.NotSetContext,0)
 
 
         def getRuleIndex(self):
-            return vladparser.RULE_atom
+            return VLADParser.RULE_atom
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterAtom" ):
@@ -1145,7 +1145,7 @@ class vladparser ( Parser ):
 
     def atom(self):
 
-        localctx = vladparser.AtomContext(self, self._ctx, self.state)
+        localctx = VLADParser.AtomContext(self, self._ctx, self.state)
         self.enterRule(localctx, 30, self.RULE_atom)
         try:
             self.state = 143
@@ -1186,18 +1186,18 @@ class vladparser ( Parser ):
             self.parser = parser
 
         def NOT(self):
-            return self.getToken(vladparser.NOT, 0)
+            return self.getToken(VLADParser.NOT, 0)
 
         def setElement(self):
-            return self.getTypedRuleContext(vladparser.SetElementContext,0)
+            return self.getTypedRuleContext(VLADParser.SetElementContext,0)
 
 
         def blockSet(self):
-            return self.getTypedRuleContext(vladparser.BlockSetContext,0)
+            return self.getTypedRuleContext(VLADParser.BlockSetContext,0)
 
 
         def getRuleIndex(self):
-            return vladparser.RULE_notSet
+            return VLADParser.RULE_notSet
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterNotSet" ):
@@ -1212,7 +1212,7 @@ class vladparser ( Parser ):
 
     def notSet(self):
 
-        localctx = vladparser.NotSetContext(self, self._ctx, self.state)
+        localctx = VLADParser.NotSetContext(self, self._ctx, self.state)
         self.enterRule(localctx, 32, self.RULE_notSet)
         try:
             self.state = 149
@@ -1221,7 +1221,7 @@ class vladparser ( Parser ):
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 145
-                self.match(vladparser.NOT)
+                self.match(VLADParser.NOT)
                 self.state = 146
                 self.setElement()
                 pass
@@ -1229,7 +1229,7 @@ class vladparser ( Parser ):
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 147
-                self.match(vladparser.NOT)
+                self.match(VLADParser.NOT)
                 self.state = 148
                 self.blockSet()
                 pass
@@ -1252,26 +1252,26 @@ class vladparser ( Parser ):
             self.parser = parser
 
         def LPAREN(self):
-            return self.getToken(vladparser.LPAREN, 0)
+            return self.getToken(VLADParser.LPAREN, 0)
 
         def setElement(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(vladparser.SetElementContext)
+                return self.getTypedRuleContexts(VLADParser.SetElementContext)
             else:
-                return self.getTypedRuleContext(vladparser.SetElementContext,i)
+                return self.getTypedRuleContext(VLADParser.SetElementContext,i)
 
 
         def RPAREN(self):
-            return self.getToken(vladparser.RPAREN, 0)
+            return self.getToken(VLADParser.RPAREN, 0)
 
         def OR(self, i:int=None):
             if i is None:
-                return self.getTokens(vladparser.OR)
+                return self.getTokens(VLADParser.OR)
             else:
-                return self.getToken(vladparser.OR, i)
+                return self.getToken(VLADParser.OR, i)
 
         def getRuleIndex(self):
-            return vladparser.RULE_blockSet
+            return VLADParser.RULE_blockSet
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterBlockSet" ):
@@ -1286,13 +1286,13 @@ class vladparser ( Parser ):
 
     def blockSet(self):
 
-        localctx = vladparser.BlockSetContext(self, self._ctx, self.state)
+        localctx = VLADParser.BlockSetContext(self, self._ctx, self.state)
         self.enterRule(localctx, 34, self.RULE_blockSet)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 151
-            self.match(vladparser.LPAREN)
+            self.match(VLADParser.LPAREN)
             self.state = 152
             self.setElement()
             self.state = 157
@@ -1300,7 +1300,7 @@ class vladparser ( Parser ):
             _la = self._input.LA(1)
             while _la==28:
                 self.state = 153
-                self.match(vladparser.OR)
+                self.match(VLADParser.OR)
                 self.state = 154
                 self.setElement()
                 self.state = 159
@@ -1308,7 +1308,7 @@ class vladparser ( Parser ):
                 _la = self._input.LA(1)
 
             self.state = 160
-            self.match(vladparser.RPAREN)
+            self.match(VLADParser.RPAREN)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1326,17 +1326,17 @@ class vladparser ( Parser ):
             self.parser = parser
 
         def FRAGMENT_REF(self):
-            return self.getToken(vladparser.FRAGMENT_REF, 0)
+            return self.getToken(VLADParser.FRAGMENT_REF, 0)
 
         def STRING_LITERAL(self):
-            return self.getToken(vladparser.STRING_LITERAL, 0)
+            return self.getToken(VLADParser.STRING_LITERAL, 0)
 
         def characterRange(self):
-            return self.getTypedRuleContext(vladparser.CharacterRangeContext,0)
+            return self.getTypedRuleContext(VLADParser.CharacterRangeContext,0)
 
 
         def getRuleIndex(self):
-            return vladparser.RULE_setElement
+            return VLADParser.RULE_setElement
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterSetElement" ):
@@ -1351,7 +1351,7 @@ class vladparser ( Parser ):
 
     def setElement(self):
 
-        localctx = vladparser.SetElementContext(self, self._ctx, self.state)
+        localctx = VLADParser.SetElementContext(self, self._ctx, self.state)
         self.enterRule(localctx, 36, self.RULE_setElement)
         try:
             self.state = 165
@@ -1360,13 +1360,13 @@ class vladparser ( Parser ):
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 162
-                self.match(vladparser.FRAGMENT_REF)
+                self.match(VLADParser.FRAGMENT_REF)
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 163
-                self.match(vladparser.STRING_LITERAL)
+                self.match(VLADParser.STRING_LITERAL)
                 pass
 
             elif la_ == 3:
@@ -1393,10 +1393,10 @@ class vladparser ( Parser ):
             self.parser = parser
 
         def RULE_REF(self):
-            return self.getToken(vladparser.RULE_REF, 0)
+            return self.getToken(VLADParser.RULE_REF, 0)
 
         def getRuleIndex(self):
-            return vladparser.RULE_ruleref
+            return VLADParser.RULE_ruleref
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterRuleref" ):
@@ -1411,12 +1411,12 @@ class vladparser ( Parser ):
 
     def ruleref(self):
 
-        localctx = vladparser.RulerefContext(self, self._ctx, self.state)
+        localctx = VLADParser.RulerefContext(self, self._ctx, self.state)
         self.enterRule(localctx, 38, self.RULE_ruleref)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 167
-            self.match(vladparser.RULE_REF)
+            self.match(VLADParser.RULE_REF)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1434,17 +1434,17 @@ class vladparser ( Parser ):
             self.parser = parser
 
         def LPAREN(self):
-            return self.getToken(vladparser.LPAREN, 0)
+            return self.getToken(VLADParser.LPAREN, 0)
 
         def altList(self):
-            return self.getTypedRuleContext(vladparser.AltListContext,0)
+            return self.getTypedRuleContext(VLADParser.AltListContext,0)
 
 
         def RPAREN(self):
-            return self.getToken(vladparser.RPAREN, 0)
+            return self.getToken(VLADParser.RPAREN, 0)
 
         def getRuleIndex(self):
-            return vladparser.RULE_block
+            return VLADParser.RULE_block
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterBlock" ):
@@ -1459,16 +1459,16 @@ class vladparser ( Parser ):
 
     def block(self):
 
-        localctx = vladparser.BlockContext(self, self._ctx, self.state)
+        localctx = VLADParser.BlockContext(self, self._ctx, self.state)
         self.enterRule(localctx, 40, self.RULE_block)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 169
-            self.match(vladparser.LPAREN)
+            self.match(VLADParser.LPAREN)
             self.state = 170
             self.altList()
             self.state = 171
-            self.match(vladparser.RPAREN)
+            self.match(VLADParser.RPAREN)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1487,15 +1487,15 @@ class vladparser ( Parser ):
 
         def STRING_LITERAL(self, i:int=None):
             if i is None:
-                return self.getTokens(vladparser.STRING_LITERAL)
+                return self.getTokens(VLADParser.STRING_LITERAL)
             else:
-                return self.getToken(vladparser.STRING_LITERAL, i)
+                return self.getToken(VLADParser.STRING_LITERAL, i)
 
         def RANGE(self):
-            return self.getToken(vladparser.RANGE, 0)
+            return self.getToken(VLADParser.RANGE, 0)
 
         def getRuleIndex(self):
-            return vladparser.RULE_characterRange
+            return VLADParser.RULE_characterRange
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterCharacterRange" ):
@@ -1510,16 +1510,16 @@ class vladparser ( Parser ):
 
     def characterRange(self):
 
-        localctx = vladparser.CharacterRangeContext(self, self._ctx, self.state)
+        localctx = VLADParser.CharacterRangeContext(self, self._ctx, self.state)
         self.enterRule(localctx, 42, self.RULE_characterRange)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 173
-            self.match(vladparser.STRING_LITERAL)
+            self.match(VLADParser.STRING_LITERAL)
             self.state = 174
-            self.match(vladparser.RANGE)
+            self.match(VLADParser.RANGE)
             self.state = 175
-            self.match(vladparser.STRING_LITERAL)
+            self.match(VLADParser.STRING_LITERAL)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1537,13 +1537,13 @@ class vladparser ( Parser ):
             self.parser = parser
 
         def FRAGMENT_REF(self):
-            return self.getToken(vladparser.FRAGMENT_REF, 0)
+            return self.getToken(VLADParser.FRAGMENT_REF, 0)
 
         def STRING_LITERAL(self):
-            return self.getToken(vladparser.STRING_LITERAL, 0)
+            return self.getToken(VLADParser.STRING_LITERAL, 0)
 
         def getRuleIndex(self):
-            return vladparser.RULE_terminalDef
+            return VLADParser.RULE_terminalDef
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterTerminalDef" ):
@@ -1558,7 +1558,7 @@ class vladparser ( Parser ):
 
     def terminalDef(self):
 
-        localctx = vladparser.TerminalDefContext(self, self._ctx, self.state)
+        localctx = VLADParser.TerminalDefContext(self, self._ctx, self.state)
         self.enterRule(localctx, 44, self.RULE_terminalDef)
         self._la = 0 # Token type
         try:
