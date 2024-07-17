@@ -8,6 +8,24 @@ else:
 # This class defines a complete listener for a parse tree produced by VLADParser.
 class VLADParserListener(ParseTreeListener):
 
+    # Enter a parse tree produced by VLADParser#rules.
+    def enterRules(self, ctx:VLADParser.RulesContext):
+        pass
+
+    # Exit a parse tree produced by VLADParser#rules.
+    def exitRules(self, ctx:VLADParser.RulesContext):
+        pass
+
+
+    # Enter a parse tree produced by VLADParser#rule.
+    def enterRule(self, ctx:VLADParser.RuleContext):
+        pass
+
+    # Exit a parse tree produced by VLADParser#rule.
+    def exitRule(self, ctx:VLADParser.RuleContext):
+        pass
+
+
     # Enter a parse tree produced by VLADParser#tokenRule.
     def enterTokenRule(self, ctx:VLADParser.TokenRuleContext):
         pass

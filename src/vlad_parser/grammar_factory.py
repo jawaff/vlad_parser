@@ -2,9 +2,10 @@ from typing import List
 from .parser import Grammar, TokenMatcher
 
 from antlr4 import *
-from parser.grammar.VLADLexer import VLADLexer
-from parser.grammar.VLADParser import VLADParser
-from parser.grammar.VLADParserListener import VLADParserListener
+from .grammar.VLADLexer import VLADLexer
+from .grammar.VLADParser import VLADParser
+from .grammar.VLADParserVisitor import VLADParserVisitor
+from vlad_parser.translator import TokenTranslator
 
 # TODO This needs a lot of work too convert from the rule text to the token matchers.
 
@@ -17,16 +18,20 @@ def is_other_rule(rule_line: str) -> bool:
 def build_matchers(rule: str) -> List[TokenMatcher]:
     return []
 
-def load_grammar(filename: str) -> Grammar:
-    listener = VLADParserListener()
+def load_grammar(filename: str, translator: TokenTranslator) -> Grammar:
+    print('LOADING')
     with open(filename) as file:
-        input_stream = InputStream(file)
+        input_stream = InputStream(file.read())
         lexer = VLADLexer(input_stream)
         token_stream = CommonTokenStream(lexer)
         parser = VLADParser(token_stream)
-        parser.addParseListener(listener)
+        tree = parser.rules()
+        print(tree)
+        #listener = VLADParserListener()
+        visitor = VLADParserVisitor(translator)
+        visitor.visit(tree)
     
-    return Grammar()
+        return visitor.build_grammar()
 
         # Collects the nonempty rule lines
         #rule_lines = [line.strip() for line in file if not line.strip()]

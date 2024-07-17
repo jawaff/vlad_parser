@@ -1,16 +1,16 @@
 lexer grammar VLADLexer;
 
-options {
-    superClass = LexerAdaptor;
-}
+//options {
+//    superClass = LexerAdaptor;
+//}
 
 import VLADLexBasic;
 
 // Standard set of fragments
-tokens {
-    FRAGMENT_REF,
-    RULE_REF
-}
+//tokens {
+//    FRAGMENT_REF,
+//    RULE_REF
+//}
 
 channels {
     COMMENT
@@ -45,7 +45,7 @@ INT
 // may contain unicode escape sequences of the form \uxxxx, where x
 // is a valid hexadecimal number (per Unicode standard).
 REGEX_LITERAL
-    : 'r' SQuoteLiteral
+    : R SQuoteLiteral
     ;
 
 STRING_LITERAL

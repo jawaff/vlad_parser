@@ -10,66 +10,71 @@ else:
 
 def serializedATN():
     return [
-        4,1,37,180,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
+        4,1,35,195,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
         6,2,7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,2,13,7,13,
         2,14,7,14,2,15,7,15,2,16,7,16,2,17,7,17,2,18,7,18,2,19,7,19,2,20,
-        7,20,2,21,7,21,2,22,7,22,1,0,1,0,1,0,1,0,1,0,1,1,1,1,1,1,1,1,1,1,
-        1,1,1,2,1,2,1,2,1,2,1,2,1,2,1,3,1,3,1,3,1,4,1,4,1,4,5,4,70,8,4,10,
-        4,12,4,73,9,4,1,5,1,5,1,6,1,6,1,6,5,6,80,8,6,10,6,12,6,83,9,6,1,
-        7,4,7,86,8,7,11,7,12,7,87,1,7,3,7,91,8,7,1,8,1,8,3,8,95,8,8,1,8,
-        1,8,3,8,99,8,8,3,8,101,8,8,1,9,1,9,1,9,1,9,1,10,1,10,1,10,5,10,110,
-        8,10,10,10,12,10,113,9,10,1,11,4,11,116,8,11,11,11,12,11,117,1,11,
-        3,11,121,8,11,1,12,1,12,1,12,3,12,126,8,12,1,12,1,12,3,12,130,8,
-        12,3,12,132,8,12,1,13,1,13,1,14,1,14,1,14,3,14,139,8,14,1,15,1,15,
-        1,15,3,15,144,8,15,1,16,1,16,1,16,1,16,3,16,150,8,16,1,17,1,17,1,
-        17,1,17,5,17,156,8,17,10,17,12,17,159,9,17,1,17,1,17,1,18,1,18,1,
-        18,3,18,166,8,18,1,19,1,19,1,20,1,20,1,20,1,20,1,21,1,21,1,21,1,
-        21,1,22,1,22,1,22,0,0,23,0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,
-        30,32,34,36,38,40,42,44,0,2,2,0,24,25,27,27,2,0,1,1,8,8,177,0,46,
-        1,0,0,0,2,51,1,0,0,0,4,57,1,0,0,0,6,63,1,0,0,0,8,66,1,0,0,0,10,74,
-        1,0,0,0,12,76,1,0,0,0,14,90,1,0,0,0,16,100,1,0,0,0,18,102,1,0,0,
-        0,20,106,1,0,0,0,22,120,1,0,0,0,24,131,1,0,0,0,26,133,1,0,0,0,28,
-        138,1,0,0,0,30,143,1,0,0,0,32,149,1,0,0,0,34,151,1,0,0,0,36,165,
-        1,0,0,0,38,167,1,0,0,0,40,169,1,0,0,0,42,173,1,0,0,0,44,177,1,0,
-        0,0,46,47,5,2,0,0,47,48,5,12,0,0,48,49,3,6,3,0,49,50,5,15,0,0,50,
-        1,1,0,0,0,51,52,5,11,0,0,52,53,5,2,0,0,53,54,5,12,0,0,54,55,3,6,
-        3,0,55,56,5,15,0,0,56,3,1,0,0,0,57,58,5,10,0,0,58,59,5,1,0,0,59,
-        60,5,12,0,0,60,61,3,10,5,0,61,62,5,15,0,0,62,5,1,0,0,0,63,64,5,8,
-        0,0,64,65,3,8,4,0,65,7,1,0,0,0,66,71,3,22,11,0,67,68,5,28,0,0,68,
-        70,3,22,11,0,69,67,1,0,0,0,70,73,1,0,0,0,71,69,1,0,0,0,71,72,1,0,
-        0,0,72,9,1,0,0,0,73,71,1,0,0,0,74,75,3,12,6,0,75,11,1,0,0,0,76,81,
-        3,14,7,0,77,78,5,28,0,0,78,80,3,14,7,0,79,77,1,0,0,0,80,83,1,0,0,
-        0,81,79,1,0,0,0,81,82,1,0,0,0,82,13,1,0,0,0,83,81,1,0,0,0,84,86,
-        3,16,8,0,85,84,1,0,0,0,86,87,1,0,0,0,87,85,1,0,0,0,87,88,1,0,0,0,
-        88,91,1,0,0,0,89,91,1,0,0,0,90,85,1,0,0,0,90,89,1,0,0,0,91,15,1,
-        0,0,0,92,94,3,28,14,0,93,95,3,26,13,0,94,93,1,0,0,0,94,95,1,0,0,
-        0,95,101,1,0,0,0,96,98,3,18,9,0,97,99,3,26,13,0,98,97,1,0,0,0,98,
-        99,1,0,0,0,99,101,1,0,0,0,100,92,1,0,0,0,100,96,1,0,0,0,101,17,1,
-        0,0,0,102,103,5,16,0,0,103,104,3,12,6,0,104,105,5,17,0,0,105,19,
-        1,0,0,0,106,111,3,22,11,0,107,108,5,28,0,0,108,110,3,22,11,0,109,
-        107,1,0,0,0,110,113,1,0,0,0,111,109,1,0,0,0,111,112,1,0,0,0,112,
-        21,1,0,0,0,113,111,1,0,0,0,114,116,3,24,12,0,115,114,1,0,0,0,116,
-        117,1,0,0,0,117,115,1,0,0,0,117,118,1,0,0,0,118,121,1,0,0,0,119,
-        121,1,0,0,0,120,115,1,0,0,0,120,119,1,0,0,0,121,23,1,0,0,0,122,125,
-        3,30,15,0,123,126,3,26,13,0,124,126,1,0,0,0,125,123,1,0,0,0,125,
-        124,1,0,0,0,126,132,1,0,0,0,127,129,3,40,20,0,128,130,3,26,13,0,
-        129,128,1,0,0,0,129,130,1,0,0,0,130,132,1,0,0,0,131,122,1,0,0,0,
-        131,127,1,0,0,0,132,25,1,0,0,0,133,134,7,0,0,0,134,27,1,0,0,0,135,
-        139,3,42,21,0,136,139,3,44,22,0,137,139,3,32,16,0,138,135,1,0,0,
-        0,138,136,1,0,0,0,138,137,1,0,0,0,139,29,1,0,0,0,140,144,3,44,22,
-        0,141,144,3,38,19,0,142,144,3,32,16,0,143,140,1,0,0,0,143,141,1,
-        0,0,0,143,142,1,0,0,0,144,31,1,0,0,0,145,146,5,34,0,0,146,150,3,
-        36,18,0,147,148,5,34,0,0,148,150,3,34,17,0,149,145,1,0,0,0,149,147,
-        1,0,0,0,150,33,1,0,0,0,151,152,5,16,0,0,152,157,3,36,18,0,153,154,
-        5,28,0,0,154,156,3,36,18,0,155,153,1,0,0,0,156,159,1,0,0,0,157,155,
-        1,0,0,0,157,158,1,0,0,0,158,160,1,0,0,0,159,157,1,0,0,0,160,161,
-        5,17,0,0,161,35,1,0,0,0,162,166,5,1,0,0,163,166,5,8,0,0,164,166,
-        3,42,21,0,165,162,1,0,0,0,165,163,1,0,0,0,165,164,1,0,0,0,166,37,
-        1,0,0,0,167,168,5,2,0,0,168,39,1,0,0,0,169,170,5,16,0,0,170,171,
-        3,20,10,0,171,172,5,17,0,0,172,41,1,0,0,0,173,174,5,8,0,0,174,175,
-        5,30,0,0,175,176,5,8,0,0,176,43,1,0,0,0,177,178,7,1,0,0,178,45,1,
-        0,0,0,18,71,81,87,90,94,98,100,111,117,120,125,129,131,138,143,149,
-        157,165
+        7,20,2,21,7,21,2,22,7,22,2,23,7,23,2,24,7,24,1,0,4,0,52,8,0,11,0,
+        12,0,53,1,1,1,1,1,1,3,1,59,8,1,1,2,1,2,1,2,1,2,1,2,1,3,1,3,1,3,1,
+        3,1,3,1,3,1,4,1,4,1,4,1,4,1,4,1,4,1,5,1,5,1,5,1,6,1,6,1,6,5,6,84,
+        8,6,10,6,12,6,87,9,6,1,7,1,7,1,8,1,8,1,8,5,8,94,8,8,10,8,12,8,97,
+        9,8,1,9,4,9,100,8,9,11,9,12,9,101,1,9,3,9,105,8,9,1,10,1,10,3,10,
+        109,8,10,1,10,1,10,3,10,113,8,10,3,10,115,8,10,1,11,1,11,1,11,1,
+        11,1,12,1,12,1,12,5,12,124,8,12,10,12,12,12,127,9,12,1,13,4,13,130,
+        8,13,11,13,12,13,131,1,13,3,13,135,8,13,1,14,1,14,1,14,3,14,140,
+        8,14,1,14,1,14,3,14,144,8,14,3,14,146,8,14,1,15,1,15,1,16,1,16,1,
+        16,3,16,153,8,16,1,17,1,17,1,17,1,17,3,17,159,8,17,1,18,1,18,1,18,
+        1,18,3,18,165,8,18,1,19,1,19,1,19,1,19,5,19,171,8,19,10,19,12,19,
+        174,9,19,1,19,1,19,1,20,1,20,1,20,3,20,181,8,20,1,21,1,21,1,22,1,
+        22,1,22,1,22,1,23,1,23,1,23,1,23,1,24,1,24,1,24,0,0,25,0,2,4,6,8,
+        10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,0,2,
+        2,0,22,23,25,25,2,0,6,6,33,33,194,0,51,1,0,0,0,2,58,1,0,0,0,4,60,
+        1,0,0,0,6,65,1,0,0,0,8,71,1,0,0,0,10,77,1,0,0,0,12,80,1,0,0,0,14,
+        88,1,0,0,0,16,90,1,0,0,0,18,104,1,0,0,0,20,114,1,0,0,0,22,116,1,
+        0,0,0,24,120,1,0,0,0,26,134,1,0,0,0,28,145,1,0,0,0,30,147,1,0,0,
+        0,32,152,1,0,0,0,34,158,1,0,0,0,36,164,1,0,0,0,38,166,1,0,0,0,40,
+        180,1,0,0,0,42,182,1,0,0,0,44,184,1,0,0,0,46,188,1,0,0,0,48,192,
+        1,0,0,0,50,52,3,2,1,0,51,50,1,0,0,0,52,53,1,0,0,0,53,51,1,0,0,0,
+        53,54,1,0,0,0,54,1,1,0,0,0,55,59,3,4,2,0,56,59,3,6,3,0,57,59,3,8,
+        4,0,58,55,1,0,0,0,58,56,1,0,0,0,58,57,1,0,0,0,59,3,1,0,0,0,60,61,
+        5,33,0,0,61,62,5,10,0,0,62,63,3,10,5,0,63,64,5,13,0,0,64,5,1,0,0,
+        0,65,66,5,9,0,0,66,67,5,33,0,0,67,68,5,10,0,0,68,69,3,10,5,0,69,
+        70,5,13,0,0,70,7,1,0,0,0,71,72,5,8,0,0,72,73,5,33,0,0,73,74,5,10,
+        0,0,74,75,3,14,7,0,75,76,5,13,0,0,76,9,1,0,0,0,77,78,5,6,0,0,78,
+        79,3,12,6,0,79,11,1,0,0,0,80,85,3,26,13,0,81,82,5,26,0,0,82,84,3,
+        26,13,0,83,81,1,0,0,0,84,87,1,0,0,0,85,83,1,0,0,0,85,86,1,0,0,0,
+        86,13,1,0,0,0,87,85,1,0,0,0,88,89,3,16,8,0,89,15,1,0,0,0,90,95,3,
+        18,9,0,91,92,5,26,0,0,92,94,3,18,9,0,93,91,1,0,0,0,94,97,1,0,0,0,
+        95,93,1,0,0,0,95,96,1,0,0,0,96,17,1,0,0,0,97,95,1,0,0,0,98,100,3,
+        20,10,0,99,98,1,0,0,0,100,101,1,0,0,0,101,99,1,0,0,0,101,102,1,0,
+        0,0,102,105,1,0,0,0,103,105,1,0,0,0,104,99,1,0,0,0,104,103,1,0,0,
+        0,105,19,1,0,0,0,106,108,3,32,16,0,107,109,3,30,15,0,108,107,1,0,
+        0,0,108,109,1,0,0,0,109,115,1,0,0,0,110,112,3,22,11,0,111,113,3,
+        30,15,0,112,111,1,0,0,0,112,113,1,0,0,0,113,115,1,0,0,0,114,106,
+        1,0,0,0,114,110,1,0,0,0,115,21,1,0,0,0,116,117,5,14,0,0,117,118,
+        3,16,8,0,118,119,5,15,0,0,119,23,1,0,0,0,120,125,3,26,13,0,121,122,
+        5,26,0,0,122,124,3,26,13,0,123,121,1,0,0,0,124,127,1,0,0,0,125,123,
+        1,0,0,0,125,126,1,0,0,0,126,25,1,0,0,0,127,125,1,0,0,0,128,130,3,
+        28,14,0,129,128,1,0,0,0,130,131,1,0,0,0,131,129,1,0,0,0,131,132,
+        1,0,0,0,132,135,1,0,0,0,133,135,1,0,0,0,134,129,1,0,0,0,134,133,
+        1,0,0,0,135,27,1,0,0,0,136,139,3,34,17,0,137,140,3,30,15,0,138,140,
+        1,0,0,0,139,137,1,0,0,0,139,138,1,0,0,0,140,146,1,0,0,0,141,143,
+        3,44,22,0,142,144,3,30,15,0,143,142,1,0,0,0,143,144,1,0,0,0,144,
+        146,1,0,0,0,145,136,1,0,0,0,145,141,1,0,0,0,146,29,1,0,0,0,147,148,
+        7,0,0,0,148,31,1,0,0,0,149,153,3,40,20,0,150,153,3,48,24,0,151,153,
+        3,36,18,0,152,149,1,0,0,0,152,150,1,0,0,0,152,151,1,0,0,0,153,33,
+        1,0,0,0,154,159,3,40,20,0,155,159,3,48,24,0,156,159,3,42,21,0,157,
+        159,3,36,18,0,158,154,1,0,0,0,158,155,1,0,0,0,158,156,1,0,0,0,158,
+        157,1,0,0,0,159,35,1,0,0,0,160,161,5,32,0,0,161,165,3,40,20,0,162,
+        163,5,32,0,0,163,165,3,38,19,0,164,160,1,0,0,0,164,162,1,0,0,0,165,
+        37,1,0,0,0,166,167,5,14,0,0,167,172,3,40,20,0,168,169,5,26,0,0,169,
+        171,3,40,20,0,170,168,1,0,0,0,171,174,1,0,0,0,172,170,1,0,0,0,172,
+        173,1,0,0,0,173,175,1,0,0,0,174,172,1,0,0,0,175,176,5,15,0,0,176,
+        39,1,0,0,0,177,181,5,33,0,0,178,181,5,6,0,0,179,181,3,46,23,0,180,
+        177,1,0,0,0,180,178,1,0,0,0,180,179,1,0,0,0,181,41,1,0,0,0,182,183,
+        5,33,0,0,183,43,1,0,0,0,184,185,5,14,0,0,185,186,3,24,12,0,186,187,
+        5,15,0,0,187,45,1,0,0,0,188,189,5,6,0,0,189,190,5,28,0,0,190,191,
+        5,6,0,0,191,47,1,0,0,0,192,193,7,1,0,0,193,49,1,0,0,0,20,53,58,85,
+        95,101,104,108,112,114,125,131,134,139,143,145,152,158,164,172,180
     ]
 
 class VLADParser ( Parser ):
@@ -84,86 +89,85 @@ class VLADParser ( Parser ):
 
     literalNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                      "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
-                     "<INVALID>", "<INVALID>", "'fragment'", "'special'" ]
+                     "'fragment'", "'special'" ]
 
-    symbolicNames = [ "<INVALID>", "FRAGMENT_REF", "RULE_REF", "DOC_COMMENT", 
-                      "BLOCK_COMMENT", "LINE_COMMENT", "INT", "REGEX_LITERAL", 
-                      "STRING_LITERAL", "UNTERMINATED_STRING_LITERAL", "FRAGMENT", 
-                      "SPECIAL", "COLON", "COLONCOLON", "COMMA", "SEMI", 
-                      "LPAREN", "RPAREN", "LBRACE", "RBRACE", "RARROW", 
+    symbolicNames = [ "<INVALID>", "DOC_COMMENT", "BLOCK_COMMENT", "LINE_COMMENT", 
+                      "INT", "REGEX_LITERAL", "STRING_LITERAL", "UNTERMINATED_STRING_LITERAL", 
+                      "FRAGMENT", "SPECIAL", "COLON", "COLONCOLON", "COMMA", 
+                      "SEMI", "LPAREN", "RPAREN", "LBRACE", "RBRACE", "RARROW", 
                       "LT", "GT", "ASSIGN", "QUESTION", "STAR", "PLUS_ASSIGN", 
                       "PLUS", "OR", "DOLLAR", "RANGE", "DOT", "AT", "POUND", 
                       "NOT", "ID", "WS", "ERRCHAR" ]
 
-    RULE_tokenRule = 0
-    RULE_specialRule = 1
-    RULE_fragmentRule = 2
-    RULE_ruleBlock = 3
-    RULE_ruleAltList = 4
-    RULE_lexerRuleBlock = 5
-    RULE_lexerAltList = 6
-    RULE_lexerAlt = 7
-    RULE_lexerElement = 8
-    RULE_lexerBlock = 9
-    RULE_altList = 10
-    RULE_alternative = 11
-    RULE_element = 12
-    RULE_ebnfSuffix = 13
-    RULE_lexerAtom = 14
-    RULE_atom = 15
-    RULE_notSet = 16
-    RULE_blockSet = 17
-    RULE_setElement = 18
-    RULE_ruleref = 19
-    RULE_block = 20
-    RULE_characterRange = 21
-    RULE_terminalDef = 22
+    RULE_rules = 0
+    RULE_rule = 1
+    RULE_tokenRule = 2
+    RULE_specialRule = 3
+    RULE_fragmentRule = 4
+    RULE_ruleBlock = 5
+    RULE_ruleAltList = 6
+    RULE_lexerRuleBlock = 7
+    RULE_lexerAltList = 8
+    RULE_lexerAlt = 9
+    RULE_lexerElement = 10
+    RULE_lexerBlock = 11
+    RULE_altList = 12
+    RULE_alternative = 13
+    RULE_element = 14
+    RULE_ebnfSuffix = 15
+    RULE_lexerAtom = 16
+    RULE_atom = 17
+    RULE_notSet = 18
+    RULE_blockSet = 19
+    RULE_setElement = 20
+    RULE_ruleref = 21
+    RULE_block = 22
+    RULE_characterRange = 23
+    RULE_terminalDef = 24
 
-    ruleNames =  [ "tokenRule", "specialRule", "fragmentRule", "ruleBlock", 
-                   "ruleAltList", "lexerRuleBlock", "lexerAltList", "lexerAlt", 
-                   "lexerElement", "lexerBlock", "altList", "alternative", 
-                   "element", "ebnfSuffix", "lexerAtom", "atom", "notSet", 
-                   "blockSet", "setElement", "ruleref", "block", "characterRange", 
-                   "terminalDef" ]
+    ruleNames =  [ "rules", "rule", "tokenRule", "specialRule", "fragmentRule", 
+                   "ruleBlock", "ruleAltList", "lexerRuleBlock", "lexerAltList", 
+                   "lexerAlt", "lexerElement", "lexerBlock", "altList", 
+                   "alternative", "element", "ebnfSuffix", "lexerAtom", 
+                   "atom", "notSet", "blockSet", "setElement", "ruleref", 
+                   "block", "characterRange", "terminalDef" ]
 
     EOF = Token.EOF
-    FRAGMENT_REF=1
-    RULE_REF=2
-    DOC_COMMENT=3
-    BLOCK_COMMENT=4
-    LINE_COMMENT=5
-    INT=6
-    REGEX_LITERAL=7
-    STRING_LITERAL=8
-    UNTERMINATED_STRING_LITERAL=9
-    FRAGMENT=10
-    SPECIAL=11
-    COLON=12
-    COLONCOLON=13
-    COMMA=14
-    SEMI=15
-    LPAREN=16
-    RPAREN=17
-    LBRACE=18
-    RBRACE=19
-    RARROW=20
-    LT=21
-    GT=22
-    ASSIGN=23
-    QUESTION=24
-    STAR=25
-    PLUS_ASSIGN=26
-    PLUS=27
-    OR=28
-    DOLLAR=29
-    RANGE=30
-    DOT=31
-    AT=32
-    POUND=33
-    NOT=34
-    ID=35
-    WS=36
-    ERRCHAR=37
+    DOC_COMMENT=1
+    BLOCK_COMMENT=2
+    LINE_COMMENT=3
+    INT=4
+    REGEX_LITERAL=5
+    STRING_LITERAL=6
+    UNTERMINATED_STRING_LITERAL=7
+    FRAGMENT=8
+    SPECIAL=9
+    COLON=10
+    COLONCOLON=11
+    COMMA=12
+    SEMI=13
+    LPAREN=14
+    RPAREN=15
+    LBRACE=16
+    RBRACE=17
+    RARROW=18
+    LT=19
+    GT=20
+    ASSIGN=21
+    QUESTION=22
+    STAR=23
+    PLUS_ASSIGN=24
+    PLUS=25
+    OR=26
+    DOLLAR=27
+    RANGE=28
+    DOT=29
+    AT=30
+    POUND=31
+    NOT=32
+    ID=33
+    WS=34
+    ERRCHAR=35
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
@@ -174,6 +178,142 @@ class VLADParser ( Parser ):
 
 
 
+    class RulesContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def rule_(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(VLADParser.RuleContext)
+            else:
+                return self.getTypedRuleContext(VLADParser.RuleContext,i)
+
+
+        def getRuleIndex(self):
+            return VLADParser.RULE_rules
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterRules" ):
+                listener.enterRules(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitRules" ):
+                listener.exitRules(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitRules" ):
+                return visitor.visitRules(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+
+
+    def rules(self):
+
+        localctx = VLADParser.RulesContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 0, self.RULE_rules)
+        self._la = 0 # Token type
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 51 
+            self._errHandler.sync(self)
+            _la = self._input.LA(1)
+            while True:
+                self.state = 50
+                self.rule_()
+                self.state = 53 
+                self._errHandler.sync(self)
+                _la = self._input.LA(1)
+                if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & 8589935360) != 0)):
+                    break
+
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class RuleContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def tokenRule(self):
+            return self.getTypedRuleContext(VLADParser.TokenRuleContext,0)
+
+
+        def specialRule(self):
+            return self.getTypedRuleContext(VLADParser.SpecialRuleContext,0)
+
+
+        def fragmentRule(self):
+            return self.getTypedRuleContext(VLADParser.FragmentRuleContext,0)
+
+
+        def getRuleIndex(self):
+            return VLADParser.RULE_rule
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterRule" ):
+                listener.enterRule(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitRule" ):
+                listener.exitRule(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitRule" ):
+                return visitor.visitRule(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+
+
+    def rule_(self):
+
+        localctx = VLADParser.RuleContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 2, self.RULE_rule)
+        try:
+            self.state = 58
+            self._errHandler.sync(self)
+            token = self._input.LA(1)
+            if token in [33]:
+                self.enterOuterAlt(localctx, 1)
+                self.state = 55
+                self.tokenRule()
+                pass
+            elif token in [9]:
+                self.enterOuterAlt(localctx, 2)
+                self.state = 56
+                self.specialRule()
+                pass
+            elif token in [8]:
+                self.enterOuterAlt(localctx, 3)
+                self.state = 57
+                self.fragmentRule()
+                pass
+            else:
+                raise NoViableAltException(self)
+
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
     class TokenRuleContext(ParserRuleContext):
         __slots__ = 'parser'
 
@@ -181,8 +321,8 @@ class VLADParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def RULE_REF(self):
-            return self.getToken(VLADParser.RULE_REF, 0)
+        def ID(self):
+            return self.getToken(VLADParser.ID, 0)
 
         def COLON(self):
             return self.getToken(VLADParser.COLON, 0)
@@ -205,22 +345,28 @@ class VLADParser ( Parser ):
             if hasattr( listener, "exitTokenRule" ):
                 listener.exitTokenRule(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitTokenRule" ):
+                return visitor.visitTokenRule(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
     def tokenRule(self):
 
         localctx = VLADParser.TokenRuleContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 0, self.RULE_tokenRule)
+        self.enterRule(localctx, 4, self.RULE_tokenRule)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 46
-            self.match(VLADParser.RULE_REF)
-            self.state = 47
+            self.state = 60
+            self.match(VLADParser.ID)
+            self.state = 61
             self.match(VLADParser.COLON)
-            self.state = 48
+            self.state = 62
             self.ruleBlock()
-            self.state = 49
+            self.state = 63
             self.match(VLADParser.SEMI)
         except RecognitionException as re:
             localctx.exception = re
@@ -241,8 +387,8 @@ class VLADParser ( Parser ):
         def SPECIAL(self):
             return self.getToken(VLADParser.SPECIAL, 0)
 
-        def RULE_REF(self):
-            return self.getToken(VLADParser.RULE_REF, 0)
+        def ID(self):
+            return self.getToken(VLADParser.ID, 0)
 
         def COLON(self):
             return self.getToken(VLADParser.COLON, 0)
@@ -265,24 +411,30 @@ class VLADParser ( Parser ):
             if hasattr( listener, "exitSpecialRule" ):
                 listener.exitSpecialRule(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitSpecialRule" ):
+                return visitor.visitSpecialRule(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
     def specialRule(self):
 
         localctx = VLADParser.SpecialRuleContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 2, self.RULE_specialRule)
+        self.enterRule(localctx, 6, self.RULE_specialRule)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 51
+            self.state = 65
             self.match(VLADParser.SPECIAL)
-            self.state = 52
-            self.match(VLADParser.RULE_REF)
-            self.state = 53
+            self.state = 66
+            self.match(VLADParser.ID)
+            self.state = 67
             self.match(VLADParser.COLON)
-            self.state = 54
+            self.state = 68
             self.ruleBlock()
-            self.state = 55
+            self.state = 69
             self.match(VLADParser.SEMI)
         except RecognitionException as re:
             localctx.exception = re
@@ -303,8 +455,8 @@ class VLADParser ( Parser ):
         def FRAGMENT(self):
             return self.getToken(VLADParser.FRAGMENT, 0)
 
-        def FRAGMENT_REF(self):
-            return self.getToken(VLADParser.FRAGMENT_REF, 0)
+        def ID(self):
+            return self.getToken(VLADParser.ID, 0)
 
         def COLON(self):
             return self.getToken(VLADParser.COLON, 0)
@@ -327,24 +479,30 @@ class VLADParser ( Parser ):
             if hasattr( listener, "exitFragmentRule" ):
                 listener.exitFragmentRule(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFragmentRule" ):
+                return visitor.visitFragmentRule(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
     def fragmentRule(self):
 
         localctx = VLADParser.FragmentRuleContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 4, self.RULE_fragmentRule)
+        self.enterRule(localctx, 8, self.RULE_fragmentRule)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 57
+            self.state = 71
             self.match(VLADParser.FRAGMENT)
-            self.state = 58
-            self.match(VLADParser.FRAGMENT_REF)
-            self.state = 59
+            self.state = 72
+            self.match(VLADParser.ID)
+            self.state = 73
             self.match(VLADParser.COLON)
-            self.state = 60
+            self.state = 74
             self.lexerRuleBlock()
-            self.state = 61
+            self.state = 75
             self.match(VLADParser.SEMI)
         except RecognitionException as re:
             localctx.exception = re
@@ -380,18 +538,24 @@ class VLADParser ( Parser ):
             if hasattr( listener, "exitRuleBlock" ):
                 listener.exitRuleBlock(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitRuleBlock" ):
+                return visitor.visitRuleBlock(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
     def ruleBlock(self):
 
         localctx = VLADParser.RuleBlockContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 6, self.RULE_ruleBlock)
+        self.enterRule(localctx, 10, self.RULE_ruleBlock)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 63
+            self.state = 77
             self.match(VLADParser.STRING_LITERAL)
-            self.state = 64
+            self.state = 78
             self.ruleAltList()
         except RecognitionException as re:
             localctx.exception = re
@@ -433,27 +597,33 @@ class VLADParser ( Parser ):
             if hasattr( listener, "exitRuleAltList" ):
                 listener.exitRuleAltList(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitRuleAltList" ):
+                return visitor.visitRuleAltList(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
     def ruleAltList(self):
 
         localctx = VLADParser.RuleAltListContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 8, self.RULE_ruleAltList)
+        self.enterRule(localctx, 12, self.RULE_ruleAltList)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 66
+            self.state = 80
             self.alternative()
-            self.state = 71
+            self.state = 85
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==28:
-                self.state = 67
+            while _la==26:
+                self.state = 81
                 self.match(VLADParser.OR)
-                self.state = 68
+                self.state = 82
                 self.alternative()
-                self.state = 73
+                self.state = 87
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
@@ -488,16 +658,22 @@ class VLADParser ( Parser ):
             if hasattr( listener, "exitLexerRuleBlock" ):
                 listener.exitLexerRuleBlock(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitLexerRuleBlock" ):
+                return visitor.visitLexerRuleBlock(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
     def lexerRuleBlock(self):
 
         localctx = VLADParser.LexerRuleBlockContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 10, self.RULE_lexerRuleBlock)
+        self.enterRule(localctx, 14, self.RULE_lexerRuleBlock)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 74
+            self.state = 88
             self.lexerAltList()
         except RecognitionException as re:
             localctx.exception = re
@@ -539,27 +715,33 @@ class VLADParser ( Parser ):
             if hasattr( listener, "exitLexerAltList" ):
                 listener.exitLexerAltList(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitLexerAltList" ):
+                return visitor.visitLexerAltList(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
     def lexerAltList(self):
 
         localctx = VLADParser.LexerAltListContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 12, self.RULE_lexerAltList)
+        self.enterRule(localctx, 16, self.RULE_lexerAltList)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 76
+            self.state = 90
             self.lexerAlt()
-            self.state = 81
+            self.state = 95
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==28:
-                self.state = 77
+            while _la==26:
+                self.state = 91
                 self.match(VLADParser.OR)
-                self.state = 78
+                self.state = 92
                 self.lexerAlt()
-                self.state = 83
+                self.state = 97
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
@@ -597,34 +779,40 @@ class VLADParser ( Parser ):
             if hasattr( listener, "exitLexerAlt" ):
                 listener.exitLexerAlt(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitLexerAlt" ):
+                return visitor.visitLexerAlt(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
     def lexerAlt(self):
 
         localctx = VLADParser.LexerAltContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 14, self.RULE_lexerAlt)
+        self.enterRule(localctx, 18, self.RULE_lexerAlt)
         self._la = 0 # Token type
         try:
-            self.state = 90
+            self.state = 104
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [1, 8, 16, 34]:
+            if token in [6, 14, 32, 33]:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 85 
+                self.state = 99 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while True:
-                    self.state = 84
+                    self.state = 98
                     self.lexerElement()
-                    self.state = 87 
+                    self.state = 101 
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
-                    if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & 17179934978) != 0)):
+                    if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & 12884918336) != 0)):
                         break
 
                 pass
-            elif token in [15, 17, 28]:
+            elif token in [13, 15, 26]:
                 self.enterOuterAlt(localctx, 2)
 
                 pass
@@ -670,40 +858,46 @@ class VLADParser ( Parser ):
             if hasattr( listener, "exitLexerElement" ):
                 listener.exitLexerElement(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitLexerElement" ):
+                return visitor.visitLexerElement(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
     def lexerElement(self):
 
         localctx = VLADParser.LexerElementContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 16, self.RULE_lexerElement)
+        self.enterRule(localctx, 20, self.RULE_lexerElement)
         self._la = 0 # Token type
         try:
-            self.state = 100
+            self.state = 114
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [1, 8, 34]:
+            if token in [6, 32, 33]:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 92
+                self.state = 106
                 self.lexerAtom()
-                self.state = 94
+                self.state = 108
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if (((_la) & ~0x3f) == 0 and ((1 << _la) & 184549376) != 0):
-                    self.state = 93
+                if (((_la) & ~0x3f) == 0 and ((1 << _la) & 46137344) != 0):
+                    self.state = 107
                     self.ebnfSuffix()
 
 
                 pass
-            elif token in [16]:
+            elif token in [14]:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 96
+                self.state = 110
                 self.lexerBlock()
-                self.state = 98
+                self.state = 112
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if (((_la) & ~0x3f) == 0 and ((1 << _la) & 184549376) != 0):
-                    self.state = 97
+                if (((_la) & ~0x3f) == 0 and ((1 << _la) & 46137344) != 0):
+                    self.state = 111
                     self.ebnfSuffix()
 
 
@@ -748,20 +942,26 @@ class VLADParser ( Parser ):
             if hasattr( listener, "exitLexerBlock" ):
                 listener.exitLexerBlock(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitLexerBlock" ):
+                return visitor.visitLexerBlock(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
     def lexerBlock(self):
 
         localctx = VLADParser.LexerBlockContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 18, self.RULE_lexerBlock)
+        self.enterRule(localctx, 22, self.RULE_lexerBlock)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 102
+            self.state = 116
             self.match(VLADParser.LPAREN)
-            self.state = 103
+            self.state = 117
             self.lexerAltList()
-            self.state = 104
+            self.state = 118
             self.match(VLADParser.RPAREN)
         except RecognitionException as re:
             localctx.exception = re
@@ -803,27 +1003,33 @@ class VLADParser ( Parser ):
             if hasattr( listener, "exitAltList" ):
                 listener.exitAltList(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitAltList" ):
+                return visitor.visitAltList(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
     def altList(self):
 
         localctx = VLADParser.AltListContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 20, self.RULE_altList)
+        self.enterRule(localctx, 24, self.RULE_altList)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 106
+            self.state = 120
             self.alternative()
-            self.state = 111
+            self.state = 125
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==28:
-                self.state = 107
+            while _la==26:
+                self.state = 121
                 self.match(VLADParser.OR)
-                self.state = 108
+                self.state = 122
                 self.alternative()
-                self.state = 113
+                self.state = 127
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
@@ -861,34 +1067,40 @@ class VLADParser ( Parser ):
             if hasattr( listener, "exitAlternative" ):
                 listener.exitAlternative(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitAlternative" ):
+                return visitor.visitAlternative(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
     def alternative(self):
 
         localctx = VLADParser.AlternativeContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 22, self.RULE_alternative)
+        self.enterRule(localctx, 26, self.RULE_alternative)
         self._la = 0 # Token type
         try:
-            self.state = 120
+            self.state = 134
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [1, 2, 8, 16, 34]:
+            if token in [6, 14, 32, 33]:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 115 
+                self.state = 129 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while True:
-                    self.state = 114
+                    self.state = 128
                     self.element()
-                    self.state = 117 
+                    self.state = 131 
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
-                    if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & 17179934982) != 0)):
+                    if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & 12884918336) != 0)):
                         break
 
                 pass
-            elif token in [15, 17, 28]:
+            elif token in [13, 15, 26]:
                 self.enterOuterAlt(localctx, 2)
 
                 pass
@@ -934,44 +1146,50 @@ class VLADParser ( Parser ):
             if hasattr( listener, "exitElement" ):
                 listener.exitElement(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitElement" ):
+                return visitor.visitElement(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
     def element(self):
 
         localctx = VLADParser.ElementContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 24, self.RULE_element)
+        self.enterRule(localctx, 28, self.RULE_element)
         self._la = 0 # Token type
         try:
-            self.state = 131
+            self.state = 145
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [1, 2, 8, 34]:
+            if token in [6, 32, 33]:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 122
+                self.state = 136
                 self.atom()
-                self.state = 125
+                self.state = 139
                 self._errHandler.sync(self)
                 token = self._input.LA(1)
-                if token in [24, 25, 27]:
-                    self.state = 123
+                if token in [22, 23, 25]:
+                    self.state = 137
                     self.ebnfSuffix()
                     pass
-                elif token in [1, 2, 8, 15, 16, 17, 28, 34]:
+                elif token in [6, 13, 14, 15, 26, 32, 33]:
                     pass
                 else:
                     raise NoViableAltException(self)
 
                 pass
-            elif token in [16]:
+            elif token in [14]:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 127
+                self.state = 141
                 self.block()
-                self.state = 129
+                self.state = 143
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if (((_la) & ~0x3f) == 0 and ((1 << _la) & 184549376) != 0):
-                    self.state = 128
+                if (((_la) & ~0x3f) == 0 and ((1 << _la) & 46137344) != 0):
+                    self.state = 142
                     self.ebnfSuffix()
 
 
@@ -1015,19 +1233,25 @@ class VLADParser ( Parser ):
             if hasattr( listener, "exitEbnfSuffix" ):
                 listener.exitEbnfSuffix(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitEbnfSuffix" ):
+                return visitor.visitEbnfSuffix(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
     def ebnfSuffix(self):
 
         localctx = VLADParser.EbnfSuffixContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 26, self.RULE_ebnfSuffix)
+        self.enterRule(localctx, 30, self.RULE_ebnfSuffix)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 133
+            self.state = 147
             _la = self._input.LA(1)
-            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 184549376) != 0)):
+            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 46137344) != 0)):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -1048,8 +1272,8 @@ class VLADParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def characterRange(self):
-            return self.getTypedRuleContext(VLADParser.CharacterRangeContext,0)
+        def setElement(self):
+            return self.getTypedRuleContext(VLADParser.SetElementContext,0)
 
 
         def terminalDef(self):
@@ -1071,32 +1295,38 @@ class VLADParser ( Parser ):
             if hasattr( listener, "exitLexerAtom" ):
                 listener.exitLexerAtom(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitLexerAtom" ):
+                return visitor.visitLexerAtom(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
     def lexerAtom(self):
 
         localctx = VLADParser.LexerAtomContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 28, self.RULE_lexerAtom)
+        self.enterRule(localctx, 32, self.RULE_lexerAtom)
         try:
-            self.state = 138
+            self.state = 152
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,13,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,15,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 135
-                self.characterRange()
+                self.state = 149
+                self.setElement()
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 136
+                self.state = 150
                 self.terminalDef()
                 pass
 
             elif la_ == 3:
                 self.enterOuterAlt(localctx, 3)
-                self.state = 137
+                self.state = 151
                 self.notSet()
                 pass
 
@@ -1116,6 +1346,10 @@ class VLADParser ( Parser ):
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
+
+        def setElement(self):
+            return self.getTypedRuleContext(VLADParser.SetElementContext,0)
+
 
         def terminalDef(self):
             return self.getTypedRuleContext(VLADParser.TerminalDefContext,0)
@@ -1140,34 +1374,47 @@ class VLADParser ( Parser ):
             if hasattr( listener, "exitAtom" ):
                 listener.exitAtom(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitAtom" ):
+                return visitor.visitAtom(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
     def atom(self):
 
         localctx = VLADParser.AtomContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 30, self.RULE_atom)
+        self.enterRule(localctx, 34, self.RULE_atom)
         try:
-            self.state = 143
+            self.state = 158
             self._errHandler.sync(self)
-            token = self._input.LA(1)
-            if token in [1, 8]:
+            la_ = self._interp.adaptivePredict(self._input,16,self._ctx)
+            if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 140
+                self.state = 154
+                self.setElement()
+                pass
+
+            elif la_ == 2:
+                self.enterOuterAlt(localctx, 2)
+                self.state = 155
                 self.terminalDef()
                 pass
-            elif token in [2]:
-                self.enterOuterAlt(localctx, 2)
-                self.state = 141
+
+            elif la_ == 3:
+                self.enterOuterAlt(localctx, 3)
+                self.state = 156
                 self.ruleref()
                 pass
-            elif token in [34]:
-                self.enterOuterAlt(localctx, 3)
-                self.state = 142
+
+            elif la_ == 4:
+                self.enterOuterAlt(localctx, 4)
+                self.state = 157
                 self.notSet()
                 pass
-            else:
-                raise NoViableAltException(self)
+
 
         except RecognitionException as re:
             localctx.exception = re
@@ -1207,30 +1454,36 @@ class VLADParser ( Parser ):
             if hasattr( listener, "exitNotSet" ):
                 listener.exitNotSet(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitNotSet" ):
+                return visitor.visitNotSet(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
     def notSet(self):
 
         localctx = VLADParser.NotSetContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 32, self.RULE_notSet)
+        self.enterRule(localctx, 36, self.RULE_notSet)
         try:
-            self.state = 149
+            self.state = 164
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,15,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,17,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 145
+                self.state = 160
                 self.match(VLADParser.NOT)
-                self.state = 146
+                self.state = 161
                 self.setElement()
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 147
+                self.state = 162
                 self.match(VLADParser.NOT)
-                self.state = 148
+                self.state = 163
                 self.blockSet()
                 pass
 
@@ -1281,33 +1534,39 @@ class VLADParser ( Parser ):
             if hasattr( listener, "exitBlockSet" ):
                 listener.exitBlockSet(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitBlockSet" ):
+                return visitor.visitBlockSet(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
     def blockSet(self):
 
         localctx = VLADParser.BlockSetContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 34, self.RULE_blockSet)
+        self.enterRule(localctx, 38, self.RULE_blockSet)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 151
+            self.state = 166
             self.match(VLADParser.LPAREN)
-            self.state = 152
+            self.state = 167
             self.setElement()
-            self.state = 157
+            self.state = 172
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==28:
-                self.state = 153
+            while _la==26:
+                self.state = 168
                 self.match(VLADParser.OR)
-                self.state = 154
+                self.state = 169
                 self.setElement()
-                self.state = 159
+                self.state = 174
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 160
+            self.state = 175
             self.match(VLADParser.RPAREN)
         except RecognitionException as re:
             localctx.exception = re
@@ -1325,8 +1584,8 @@ class VLADParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def FRAGMENT_REF(self):
-            return self.getToken(VLADParser.FRAGMENT_REF, 0)
+        def ID(self):
+            return self.getToken(VLADParser.ID, 0)
 
         def STRING_LITERAL(self):
             return self.getToken(VLADParser.STRING_LITERAL, 0)
@@ -1346,32 +1605,38 @@ class VLADParser ( Parser ):
             if hasattr( listener, "exitSetElement" ):
                 listener.exitSetElement(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitSetElement" ):
+                return visitor.visitSetElement(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
     def setElement(self):
 
         localctx = VLADParser.SetElementContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 36, self.RULE_setElement)
+        self.enterRule(localctx, 40, self.RULE_setElement)
         try:
-            self.state = 165
+            self.state = 180
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,17,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,19,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 162
-                self.match(VLADParser.FRAGMENT_REF)
+                self.state = 177
+                self.match(VLADParser.ID)
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 163
+                self.state = 178
                 self.match(VLADParser.STRING_LITERAL)
                 pass
 
             elif la_ == 3:
                 self.enterOuterAlt(localctx, 3)
-                self.state = 164
+                self.state = 179
                 self.characterRange()
                 pass
 
@@ -1392,8 +1657,8 @@ class VLADParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def RULE_REF(self):
-            return self.getToken(VLADParser.RULE_REF, 0)
+        def ID(self):
+            return self.getToken(VLADParser.ID, 0)
 
         def getRuleIndex(self):
             return VLADParser.RULE_ruleref
@@ -1406,17 +1671,23 @@ class VLADParser ( Parser ):
             if hasattr( listener, "exitRuleref" ):
                 listener.exitRuleref(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitRuleref" ):
+                return visitor.visitRuleref(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
     def ruleref(self):
 
         localctx = VLADParser.RulerefContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 38, self.RULE_ruleref)
+        self.enterRule(localctx, 42, self.RULE_ruleref)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 167
-            self.match(VLADParser.RULE_REF)
+            self.state = 182
+            self.match(VLADParser.ID)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1454,20 +1725,26 @@ class VLADParser ( Parser ):
             if hasattr( listener, "exitBlock" ):
                 listener.exitBlock(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitBlock" ):
+                return visitor.visitBlock(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
     def block(self):
 
         localctx = VLADParser.BlockContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 40, self.RULE_block)
+        self.enterRule(localctx, 44, self.RULE_block)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 169
+            self.state = 184
             self.match(VLADParser.LPAREN)
-            self.state = 170
+            self.state = 185
             self.altList()
-            self.state = 171
+            self.state = 186
             self.match(VLADParser.RPAREN)
         except RecognitionException as re:
             localctx.exception = re
@@ -1505,20 +1782,26 @@ class VLADParser ( Parser ):
             if hasattr( listener, "exitCharacterRange" ):
                 listener.exitCharacterRange(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitCharacterRange" ):
+                return visitor.visitCharacterRange(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
     def characterRange(self):
 
         localctx = VLADParser.CharacterRangeContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 42, self.RULE_characterRange)
+        self.enterRule(localctx, 46, self.RULE_characterRange)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 173
+            self.state = 188
             self.match(VLADParser.STRING_LITERAL)
-            self.state = 174
+            self.state = 189
             self.match(VLADParser.RANGE)
-            self.state = 175
+            self.state = 190
             self.match(VLADParser.STRING_LITERAL)
         except RecognitionException as re:
             localctx.exception = re
@@ -1536,8 +1819,8 @@ class VLADParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def FRAGMENT_REF(self):
-            return self.getToken(VLADParser.FRAGMENT_REF, 0)
+        def ID(self):
+            return self.getToken(VLADParser.ID, 0)
 
         def STRING_LITERAL(self):
             return self.getToken(VLADParser.STRING_LITERAL, 0)
@@ -1553,19 +1836,25 @@ class VLADParser ( Parser ):
             if hasattr( listener, "exitTerminalDef" ):
                 listener.exitTerminalDef(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitTerminalDef" ):
+                return visitor.visitTerminalDef(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
     def terminalDef(self):
 
         localctx = VLADParser.TerminalDefContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 44, self.RULE_terminalDef)
+        self.enterRule(localctx, 48, self.RULE_terminalDef)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 177
+            self.state = 192
             _la = self._input.LA(1)
-            if not(_la==1 or _la==8):
+            if not(_la==6 or _la==33):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)

@@ -22,7 +22,7 @@
 // TODO How do we detect whether extra space tokens are even necessary for the expected text?
 
 
-fragment NAME : r'[a-zA-Z0-9\-_]+'+;
+fragment NAME : r '[a-zA-Z0-9\-_]+'+;
 fragment STAR : '*';
 fragment COMMA : ',';
 fragment PERIOD : '.';

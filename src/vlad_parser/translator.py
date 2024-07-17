@@ -18,6 +18,11 @@ class TokenTranslator:
 
     def get_vocab(self) -> Dict[str, int]:
         return self._tokenizer.get_vocab(False) # type: ignore
+    
+    def add_new_token(self, token: str):
+        if token not in self._custom_tokens:
+            self._custom_tokens.append(token)
+            self._tokenizer.add_tokens([token])
 
     def decode(self, token_list: List[int]) -> str:
         return self._tokenizer.decode(token_list)

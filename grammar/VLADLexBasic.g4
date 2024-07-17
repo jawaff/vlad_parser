@@ -244,3 +244,7 @@ fragment Pound
 fragment Tilde
     : '~'
     ;
+
+fragment R
+    : 'r'
+    ;

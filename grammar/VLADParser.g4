@@ -5,11 +5,16 @@ options {
 }
 
 // --------------------
+// Root of the parse tree
+rules: rule+;
+rule: tokenRule | specialRule | fragmentRule;
+
+// --------------------
 // Main Rule Defs
 
-tokenRule: RULE_REF COLON ruleBlock SEMI;
-specialRule: SPECIAL RULE_REF COLON ruleBlock SEMI;
-fragmentRule: FRAGMENT FRAGMENT_REF COLON lexerRuleBlock SEMI;
+tokenRule: ID COLON ruleBlock SEMI;
+specialRule: SPECIAL ID COLON ruleBlock SEMI;
+fragmentRule: FRAGMENT ID COLON lexerRuleBlock SEMI;
 
 ruleBlock
     : STRING_LITERAL ruleAltList
@@ -69,13 +74,14 @@ ebnfSuffix
     ;
 
 lexerAtom
-    : characterRange
+    : setElement
     | terminalDef
     | notSet
     ;
 
 atom
-    : terminalDef
+    : setElement
+    | terminalDef
     | ruleref
     | notSet
     ;
@@ -92,7 +98,7 @@ blockSet
     ;
 
 setElement
-    : FRAGMENT_REF
+    : ID
     | STRING_LITERAL
     | characterRange
     ;
@@ -100,7 +106,7 @@ setElement
 // ----------------
 // Parser rule ref
 ruleref
-    : RULE_REF
+    : ID
     ;
 
 // -------------
@@ -116,6 +122,6 @@ characterRange
     ;
 
 terminalDef
-    : FRAGMENT_REF
+    : ID
     | STRING_LITERAL
     ;
