@@ -16,13 +16,18 @@
  * of the transformer, so will only be for informational purposes.
  * [regex] - Used to loosely define which tokens are valid. The regular expression provided
  * should be used like a literal, except the expression determines what kind of tokens are valid.
+ *
+ * Another important note is that the first literal after each standar/special rule will have special
+ * characters added around it so as to make them absolutely unique and not conflict with anything
+ * that would be matched by a regular expression. These special literals will be used to identify the
+ * start of the rules and must only be used for identifying the start of the rules.
  */
 
 // TODO How do we express spacing and lack of spacing?
 // TODO How do we detect whether extra space tokens are even necessary for the expected text?
 
 
-fragment NAME : r '[a-zA-Z0-9\-_]+'+;
+fragment NAME : r'[a-zA-Z0-9\-_]+'+;
 fragment STAR : '*';
 fragment COMMA : ',';
 fragment PERIOD : '.';
@@ -31,15 +36,18 @@ fragment CONDITION_DELIMITER : 'AND' | 'OR';
 // Special note for the grammar factory. All rules inside of parenthesis will result in an
 // implicit special_token rule.
 SELECT : 'SELECT' (STAR | COLUMNS) FROM;
-special COLUMNS : '<COLUMNS>' COLUMN (',' COLUMN)*;
+special COLUMNS : 'COLUMNS' COLUMN (',' COLUMN)*;
 // It's beneficial to make certain special tokens that are shared throughout the grammar
 // if the associated places represent the same data.
-special COLUMN : '<COLUMN>' TABLE_ALIAS? NAME ALIAS?;
-special ALIAS : '<ALIAS>' NAME;
-special TABLE_ALIAS : '<TABLE_ALIAS>' NAME PERIOD;
+special COLUMN : 'COLUMN' TABLE_ALIAS? NAME ALIAS?;
+special ALIAS : 'ALIAS' NAME;
+special TABLE_ALIAS : 'TABLE_ALIAS' NAME PERIOD;
 FROM : 'FROM' TABLE (',' TABLE)*;
-special TABLE : '<TABLE>' NAME ALIAS?;
+special TABLE : 'TABLE' NAME ALIAS?;
 // WHERE : 'WHERE' CONDITION (CONDITION_DELIMITER CONDITION)*;
 
 // TODO Finish, this is where I stopped.
 // CONDITION [special_token] : ;
+
+// TODO What do we do if a normal (not special) rule already has its literal in the vocabulary? I think the parser won't support using that token for any other part of the grammar if that is the case, but I forget.
+// To be safe I have the translator enforcing that only new token are added for the start of each rule (except for fragments.)
