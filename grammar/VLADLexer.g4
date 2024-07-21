@@ -59,6 +59,10 @@ UNTERMINATED_STRING_LITERAL
 // -------------------------
 // Keywords
 
+ROOT
+    : 'root'
+    ;
+
 FRAGMENT
     : 'fragment'
     ;

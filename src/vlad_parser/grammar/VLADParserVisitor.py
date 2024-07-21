@@ -7,7 +7,7 @@ else:
 
 # This class defines a complete generic visitor for a parse tree produced by VLADParser.
 
-from typing import List, Dict, Optional, Union
+from typing import List, Dict, Optional
 from enum import Enum
 from dataclasses import dataclass
 import re
@@ -51,21 +51,26 @@ class PartialRule:
     matchers: List[TokenMatcher]
 
 class VLADParserVisitor(ParseTreeVisitor):
+
     def __init__(self, translator: TokenTranslator):
+        self._root_rule_id: Optional[str] = None
         self._cur_rule_id: Optional[str] = None
-        self._token_rules: Dict[str, Rule] = {}
+        self._rules: Dict[str, Rule] = {}
         self._special_rule_ids: List[str] = []
         self._translator: TokenTranslator = translator
         # This will be used to make junction rule tokens unique.
         self._junction_rule_index = 1
-        # This will be used to make fragment rule tokens unique.
-        self._fragment_rule_index = 1
 
     def build_grammar(self) -> Grammar:
-        assert 'SELECT' in self._token_rules
-        root_matcher = LiteralTokenMatcher({self._token_rules['SELECT'].token_id: None}, False, False)
-        rules = {rule.token_id: rule.matchers for rule in self._token_rules.values()}
+        assert self._root_rule_id is not None
+        assert self._root_rule_id in self._rules
+        root_matcher = LiteralTokenMatcher({self._rules[self._root_rule_id].token_id: None}, False, False)
+        # Note that fragment rules should not exist as a standalone rule in the grammar.
+        rules = {rule.token_id: rule.matchers for rule in self._rules.values() if rule.type != RuleType.FRAGMENT}
         return Grammar(root_rule=[root_matcher], rules=rules)
+    
+    def get_rules(self) -> Dict[str, Rule]:
+        return self._rules
 
     def _create_new_token(self, token: str) -> int:
         # Tokens should not exist within with the existing vocabulary.
@@ -89,7 +94,7 @@ class VLADParserVisitor(ParseTreeVisitor):
             self._junction_rule_index += 1
             token_id = self._create_new_token(token)
             junction_token_ids[token_id] = None
-            self._token_rules[token] = Rule(RuleType.JUNCTION, token, token_id, partial_rule.matchers)
+            self._rules[token] = Rule(RuleType.JUNCTION, token, token_id, partial_rule.matchers)
         
         # Optional and matchesMultiple will default to false for junctions, but can be updated for where they're used.
         return LiteralTokenMatcher(junction_token_ids, False, False)
@@ -101,13 +106,13 @@ class VLADParserVisitor(ParseTreeVisitor):
         matchers: List[TokenMatcher]
         # Just in case the literal doesn't match a rule, then we're going to need to treat it like some arbitrary literal which would be matched by a list of matchers.
         # Remember that token ids have special characters added around them.
-        if literal in self._token_rules:
-            target_rule = self._token_rules[literal]
+        if literal in self._rules:
+            target_rule = self._rules[literal]
             # Fragment rules must have their matchers copied to the place they are referenced.
             if target_rule.type == RuleType.FRAGMENT:
                 matchers = target_rule.matchers
             else:
-                matchers = [LiteralTokenMatcher({self._token_rules[literal].token_id: None}, False, False)]
+                matchers = [LiteralTokenMatcher({self._rules[literal].token_id: None}, False, False)]
         else:
             if not (literal.startswith('\'') and literal.endswith('\'')):
                 raise Exception(f'Rule reference must come after rule definition: {literal}')
@@ -142,26 +147,32 @@ class VLADParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by VLADParser#rootTokenRule.
+    def visitRootTokenRule(self, ctx:VLADParser.RootTokenRuleContext):
+        self._cur_rule_id = ctx.ID().getText()
+        self._root_rule_id = self._cur_rule_id
+        self._rules[self._cur_rule_id] = Rule(type = RuleType.TOKEN, id = self._cur_rule_id, token_id = -1, matchers = [])
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by VLADParser#tokenRule.
     def visitTokenRule(self, ctx:VLADParser.TokenRuleContext):
-        #print("Visit Token Rule: " + ctx.ID().getText())
         self._cur_rule_id = ctx.ID().getText()
-        self._token_rules[self._cur_rule_id] = Rule(type = RuleType.TOKEN, id = self._cur_rule_id, token_id = -1, matchers = [])
+        self._rules[self._cur_rule_id] = Rule(type = RuleType.TOKEN, id = self._cur_rule_id, token_id = -1, matchers = [])
         return self.visitChildren(ctx)
 
 
     # Visit a parse tree produced by VLADParser#specialRule.
     def visitSpecialRule(self, ctx:VLADParser.SpecialRuleContext):
-        #print("Visit Special Rule: " + ctx.ID().getText())
         self._cur_rule_id = ctx.ID().getText()
-        self._token_rules[self._cur_rule_id] = Rule(type = RuleType.SPECIAL, id = self._cur_rule_id, token_id = -1, matchers = [])
+        self._rules[self._cur_rule_id] = Rule(type = RuleType.SPECIAL, id = self._cur_rule_id, token_id = -1, matchers = [])
         return self.visitChildren(ctx)
 
 
     # Visit a parse tree produced by VLADParser#fragmentRule.
     def visitFragmentRule(self, ctx:VLADParser.FragmentRuleContext):
         self._cur_rule_id = ctx.ID().getText()
-        self._token_rules[self._cur_rule_id] = Rule(type = RuleType.FRAGMENT, id = self._cur_rule_id, token_id = -1, matchers = [])
+        self._rules[self._cur_rule_id] = Rule(type = RuleType.FRAGMENT, id = self._cur_rule_id, token_id = -1, matchers = [])
 
         # TODO Fragment rules are really special. The places that reference these FRAGMENT rules will need to copy their matchers instead of referencing the
         # FRAGMENT's token id. In addition, these fragment rules may be stored alongside the other rules, but should not make themselves into the grammar
@@ -172,10 +183,10 @@ class VLADParserVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by VLADParser#ruleBlock.
     def visitRuleBlock(self, ctx:VLADParser.RuleBlockContext):
+        cur_rule = self._rules[self._cur_rule_id]
+
         # Here we are going to be saving the token id that is to be associated with the current rule.
         token = ctx.STRING_LITERAL().getText()[1:-1]
-        cur_rule = self._token_rules[self._cur_rule_id]
-
         # The token does not exist in our model's vocabulary, so it must be added to the vocabulary as a new token so that we can
         # associate it with a single token id.
         cur_rule.token_id = self._create_new_token(token)
@@ -186,13 +197,7 @@ class VLADParserVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by VLADParser#fragmentRuleBlock.
     def visitFragmentRuleBlock(self, ctx:VLADParser.FragmentRuleBlockContext):
-        token = f'FRAGMENT{self._fragment_rule_index}'
-        self._fragment_rule_index += 1
-        cur_rule = self._token_rules[self._cur_rule_id]
-
-        # The token does not exist in our model's vocabulary, so it must be added to the vocabulary as a new token so that we can
-        # associate it with a single token id.
-        cur_rule.token_id = self._create_new_token(token)
+        cur_rule = self._rules[self._cur_rule_id]
 
         #print("Fragment Block Literal: " + token)
         cur_rule.matchers = self.visitAltList(ctx.altList()).matchers

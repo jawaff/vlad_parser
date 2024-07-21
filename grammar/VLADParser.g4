@@ -7,11 +7,12 @@ options {
 // --------------------
 // Root of the parse tree
 rules: rule+;
-rule: tokenRule | specialRule | fragmentRule;
+rule: rootTokenRule | tokenRule | specialRule | fragmentRule;
 
 // --------------------
 // Main Rule Defs
 
+rootTokenRule: ROOT ID COLON ruleBlock SEMI;
 tokenRule: ID COLON ruleBlock SEMI;
 specialRule: SPECIAL ID COLON ruleBlock SEMI;
 fragmentRule: FRAGMENT ID COLON fragmentRuleBlock SEMI;
