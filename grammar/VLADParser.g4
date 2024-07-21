@@ -14,41 +14,15 @@ rule: tokenRule | specialRule | fragmentRule;
 
 tokenRule: ID COLON ruleBlock SEMI;
 specialRule: SPECIAL ID COLON ruleBlock SEMI;
-fragmentRule: FRAGMENT ID COLON lexerRuleBlock SEMI;
+fragmentRule: FRAGMENT ID COLON fragmentRuleBlock SEMI;
 
 ruleBlock
-    : STRING_LITERAL ruleAltList
+    : STRING_LITERAL altList
     ;
 
-ruleAltList
-    : alternative (OR alternative)*
+fragmentRuleBlock
+    : altList
     ;
-
-lexerRuleBlock
-    : lexerAltList
-    ;
-
-lexerAltList
-    : lexerAlt (OR lexerAlt)*
-    ;
-
-lexerAlt
-    : lexerElement+
-    |
-    // explicitly allow empty alts
-    ;
-
-lexerElement
-    : lexerAtom ebnfSuffix?
-    | lexerBlock ebnfSuffix?
-    ;
-
-lexerBlock
-    : LPAREN lexerAltList RPAREN
-    ;
-
-// --------------------
-// Rule Alts
 
 altList
     : alternative (OR alternative)*
@@ -56,8 +30,6 @@ altList
 
 alternative
     : element+
-    |
-    // explicitly allow empty alts
     ;
 
 element
@@ -73,46 +45,21 @@ ebnfSuffix
     | PLUS
     ;
 
-lexerAtom
-    : setElement
-    | terminalDef
-    | notSet
-    ;
-
-atom
-    : setElement
-    | terminalDef
-    | ruleref
-    | notSet
-    ;
-
-// --------------------
-// Inverted element set
-notSet
-    : NOT setElement
-    | NOT blockSet
-    ;
-
-blockSet
-    : LPAREN setElement (OR setElement)* RPAREN
-    ;
-
-setElement
-    : ID
-    | STRING_LITERAL
-    | characterRange
-    ;
-
-// ----------------
-// Parser rule ref
-ruleref
-    : ID
-    ;
-
 // -------------
 // Grammar Block
 block
     : LPAREN altList RPAREN
+    ;
+
+atom
+    : terminalDef
+    ;
+
+terminalDef
+    : ID
+    | STRING_LITERAL
+    | characterRange
+    | REGEX_LITERAL
     ;
 
 // ---------------
@@ -121,7 +68,3 @@ characterRange
     : STRING_LITERAL RANGE STRING_LITERAL
     ;
 
-terminalDef
-    : ID
-    | STRING_LITERAL
-    ;

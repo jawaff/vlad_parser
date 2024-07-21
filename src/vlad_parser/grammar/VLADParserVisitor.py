@@ -58,19 +58,19 @@ class VLADParserVisitor(ParseTreeVisitor):
         self._translator: TokenTranslator = translator
         # This will be used to make junction rule tokens unique.
         self._junction_rule_index = 1
+        # This will be used to make fragment rule tokens unique.
+        self._fragment_rule_index = 1
 
     def build_grammar(self) -> Grammar:
         assert 'SELECT' in self._token_rules
-        assert len(self._token_rules['SELECT'].matchers) == 1
-        root_matcher = self._token_rules['SELECT'].matchers[0]
-        del self._token_rules['SELECT']
-        rules = {rule.token_id: rule.matchers for rule in self._token_rules}
+        root_matcher = LiteralTokenMatcher({self._token_rules['SELECT'].token_id: None}, False, False)
+        rules = {rule.token_id: rule.matchers for rule in self._token_rules.values()}
         return Grammar(root_rule=[root_matcher], rules=rules)
 
     def _create_new_token(self, token: str) -> int:
         # Tokens should not exist within with the existing vocabulary.
-        self._translator.add_new_token(f':{token}:', error_on_exists=True)
-        token_ids = self._translator.translate(token)
+        self._translator.add_new_token(self._prepare_token_id(token), error_on_exists=True)
+        token_ids = self._translator.translate(self._prepare_token_id(token))
         # The token_ids should have one id and an "end" id
         assert len(token_ids) == 2 and token_ids[1] == 1
         return token_ids[0]
@@ -86,10 +86,10 @@ class VLADParserVisitor(ParseTreeVisitor):
         junction_token_ids = {}
         for partial_rule in partial_rules:
             token = f'JUNCTION{self._junction_rule_index}'
-            token_id = self._create_junction_rule(token)
+            self._junction_rule_index += 1
+            token_id = self._create_new_token(token)
             junction_token_ids[token_id] = None
             self._token_rules[token] = Rule(RuleType.JUNCTION, token, token_id, partial_rule.matchers)
-            self._junction_rule_index += 1
         
         # Optional and matchesMultiple will default to false for junctions, but can be updated for where they're used.
         return LiteralTokenMatcher(junction_token_ids, False, False)
@@ -99,17 +99,36 @@ class VLADParserVisitor(ParseTreeVisitor):
 
     def _literal_to_rule(self, literal: str) -> PartialRule:
         matchers: List[TokenMatcher]
-        token_id = self._prepare_token_id(literal)
         # Just in case the literal doesn't match a rule, then we're going to need to treat it like some arbitrary literal which would be matched by a list of matchers.
         # Remember that token ids have special characters added around them.
-        if token_id in self._token_rules:
-            matchers = [LiteralTokenMatcher({self._token_rules[token_id].token_id: None}, False, False)]
+        if literal in self._token_rules:
+            target_rule = self._token_rules[literal]
+            # Fragment rules must have their matchers copied to the place they are referenced.
+            if target_rule.type == RuleType.FRAGMENT:
+                matchers = target_rule.matchers
+            else:
+                matchers = [LiteralTokenMatcher({self._token_rules[literal].token_id: None}, False, False)]
         else:
+            if not (literal.startswith('\'') and literal.endswith('\'')):
+                raise Exception(f'Rule reference must come after rule definition: {literal}')
             # We need to cut off the last id because it should be a 1.
             ids = self._translator.translate(literal)
             assert ids[-1] == 1
-            matchers = [LiteralTokenMatcher({id: None}) for id in ids[0:-1]]
+            matchers = [LiteralTokenMatcher({id: None}, False, False) for id in ids[0:-1]]
         return PartialRule(matchers)
+    
+    def _regex_literal_to_rule(self, regex: str) -> PartialRule:
+        # Strips the r'' from the regex string.
+        pattern_str = regex[2:-1]
+        pattern = re.compile(pattern_str)
+        token_ids: Dict[int, None] = {}
+        for key, value in  self._translator.get_vocab().items():
+            if pattern.match(key):
+                token_ids[value] = None
+
+        if len(token_ids) == 0:
+            raise Exception(f'Regex did not match a single token in the model\'s vocabulary: {regex}')
+        return PartialRule([LiteralTokenMatcher(token_ids, False, False)])
 
     # Visit a parse tree produced by VLADParser#rules.
     def visitRules(self, ctx:VLADParser.RulesContext):
@@ -120,13 +139,12 @@ class VLADParserVisitor(ParseTreeVisitor):
     def visitRule(self, ctx:VLADParser.RuleContext):
         # Resets the current rule id becaue it should be replaced in the next visit*.
         self._cur_rule_id = None
-
         return self.visitChildren(ctx)
 
 
     # Visit a parse tree produced by VLADParser#tokenRule.
     def visitTokenRule(self, ctx:VLADParser.TokenRuleContext):
-        print("Visit Token Rule: " + ctx.ID().getText())
+        #print("Visit Token Rule: " + ctx.ID().getText())
         self._cur_rule_id = ctx.ID().getText()
         self._token_rules[self._cur_rule_id] = Rule(type = RuleType.TOKEN, id = self._cur_rule_id, token_id = -1, matchers = [])
         return self.visitChildren(ctx)
@@ -134,7 +152,7 @@ class VLADParserVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by VLADParser#specialRule.
     def visitSpecialRule(self, ctx:VLADParser.SpecialRuleContext):
-        print("Visit Special Rule: " + ctx.ID().getText())
+        #print("Visit Special Rule: " + ctx.ID().getText())
         self._cur_rule_id = ctx.ID().getText()
         self._token_rules[self._cur_rule_id] = Rule(type = RuleType.SPECIAL, id = self._cur_rule_id, token_id = -1, matchers = [])
         return self.visitChildren(ctx)
@@ -144,6 +162,11 @@ class VLADParserVisitor(ParseTreeVisitor):
     def visitFragmentRule(self, ctx:VLADParser.FragmentRuleContext):
         self._cur_rule_id = ctx.ID().getText()
         self._token_rules[self._cur_rule_id] = Rule(type = RuleType.FRAGMENT, id = self._cur_rule_id, token_id = -1, matchers = [])
+
+        # TODO Fragment rules are really special. The places that reference these FRAGMENT rules will need to copy their matchers instead of referencing the
+        # FRAGMENT's token id. In addition, these fragment rules may be stored alongside the other rules, but should not make themselves into the grammar
+        # as a standalone rule. These rules are only able to be used by other rules.
+
         return self.visitChildren(ctx)
 
 
@@ -153,52 +176,54 @@ class VLADParserVisitor(ParseTreeVisitor):
         token = ctx.STRING_LITERAL().getText()[1:-1]
         cur_rule = self._token_rules[self._cur_rule_id]
 
-        # If the token id for the provided token does not exist in our model's vocabulary, then it must be added to the vocabulary as a new token so that we can
+        # The token does not exist in our model's vocabulary, so it must be added to the vocabulary as a new token so that we can
         # associate it with a single token id.
         cur_rule.token_id = self._create_new_token(token)
 
-        print("Rule Block Literal:" + token)
-        return self.visitChildren(ctx)
+        #print("Rule Block Literal: " + token)
+        cur_rule.matchers = self.visitAltList(ctx.altList()).matchers
 
 
-    # Visit a parse tree produced by VLADParser#ruleAltList.
-    def visitRuleAltList(self, ctx:VLADParser.RuleAltListContext):
-        return self.visitChildren(ctx)
+    # Visit a parse tree produced by VLADParser#fragmentRuleBlock.
+    def visitFragmentRuleBlock(self, ctx:VLADParser.FragmentRuleBlockContext):
+        token = f'FRAGMENT{self._fragment_rule_index}'
+        self._fragment_rule_index += 1
+        cur_rule = self._token_rules[self._cur_rule_id]
 
+        # The token does not exist in our model's vocabulary, so it must be added to the vocabulary as a new token so that we can
+        # associate it with a single token id.
+        cur_rule.token_id = self._create_new_token(token)
 
-    # Visit a parse tree produced by VLADParser#lexerRuleBlock.
-    def visitLexerRuleBlock(self, ctx:VLADParser.LexerRuleBlockContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by VLADParser#lexerAltList.
-    def visitLexerAltList(self, ctx:VLADParser.LexerAltListContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by VLADParser#lexerAlt.
-    def visitLexerAlt(self, ctx:VLADParser.LexerAltContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by VLADParser#lexerElement.
-    def visitLexerElement(self, ctx:VLADParser.LexerElementContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by VLADParser#lexerBlock.
-    def visitLexerBlock(self, ctx:VLADParser.LexerBlockContext):
-        return self.visitChildren(ctx)
+        #print("Fragment Block Literal: " + token)
+        cur_rule.matchers = self.visitAltList(ctx.altList()).matchers
 
 
     # Visit a parse tree produced by VLADParser#altList.
-    def visitAltList(self, ctx:VLADParser.AltListContext):
-        return self.visitChildren(ctx)
+    def visitAltList(self, ctx:VLADParser.AltListContext) -> PartialRule:
+        # In the alt list there will be some number of conditional paths. This means that the alt list will translate to a conditional junction rule.
+        sub_rules: List[PartialRule] = []
+        for alt_ctx in ctx.alternative():
+            sub_rules.append(self.visitAlternative(alt_ctx))
+        
+        rule: PartialRule
+        if len(sub_rules) == 1:
+            rule = sub_rules[0]
+        elif len(sub_rules) > 1:
+            matcher: TokenMatcher = self._create_junction_rule(sub_rules)
+            rule = PartialRule([matcher])
+        else:
+            raise Exception('Alt list requires at least one alternative')
+
+        return rule
 
 
     # Visit a parse tree produced by VLADParser#alternative.
-    def visitAlternative(self, ctx:VLADParser.AlternativeContext):
-        return self.visitChildren(ctx)
+    def visitAlternative(self, ctx:VLADParser.AlternativeContext) -> PartialRule:
+        rule: PartialRule = PartialRule([])
+        for element_ctx in ctx.element():
+            sub_rule = self.visitElement(element_ctx)
+            rule.matchers.extend(sub_rule.matchers)
+        return rule
 
 
     # Visit a parse tree produced by VLADParser#element.
@@ -215,14 +240,17 @@ class VLADParserVisitor(ParseTreeVisitor):
         suffix = ctx.ebnfSuffix()
         if suffix is not None:
             if len(rule.matchers) == 0:
-                return rule
+                raise Exception('An ebnf suffix must be applied to a matcher, but there is none')
             elif len(rule.matchers) == 1:
                 self.visitEbnfSuffix(suffix, rule.matchers[0])
             else:
                 # If there are multiple matchers that this ebnf applies to, then we need a junction rule to apply the ebnf suffix to the list of matchers.
-                rule = self._create_junction_rule([rule])
-                self.visitEbnfSuffix(suffix, rule.matchers[0])
+                matcher: TokenMatcher = self._create_junction_rule([rule])
+                self.visitEbnfSuffix(suffix, matcher)
+                # We need a new rule for representing the junction.
+                rule = PartialRule([matcher])
         return rule
+
 
     # Visit a parse tree produced by VLADParser#ebnfSuffix.
     def visitEbnfSuffix(self, ctx:VLADParser.EbnfSuffixContext, matcher: TokenMatcher):
@@ -239,73 +267,38 @@ class VLADParserVisitor(ParseTreeVisitor):
         else:
             raise Exception('The ebnf suffix must be a *, + or ?')
 
-    # Visit a parse tree produced by VLADParser#lexerAtom.
-    def visitLexerAtom(self, ctx:VLADParser.LexerAtomContext):
-        return self.visitChildren(ctx)
+
+    # Visit a parse tree produced by VLADParser#block.
+    def visitBlock(self, ctx:VLADParser.BlockContext) -> PartialRule:
+        # A block consists of parenthesis and some alt list within them. We're just going to delegate and pass up the matchers
+        return self.visitAltList(ctx.altList())
 
 
     # Visit a parse tree produced by VLADParser#atom.
     def visitAtom(self, ctx:VLADParser.AtomContext) -> PartialRule:
-        set_element = ctx.setElement()
         terminal_def = ctx.terminalDef()
-        rule_ref = ctx.ruleref()
-        # TODO Remove support for notSet! I'm not sure how I would even support that unless we do some complex modification of some other matcher.
-        if set_element is not None:
-            return self.visitSetElement(set_element)
-        elif terminal_def is not None:
+        if terminal_def is not None:
             return self.visitTerminalDef(terminal_def)
-        elif rule_ref is not None:
-            return self.visitRuleref(rule_ref)
         else:
             raise Exception(f'Unsupported atom: {ctx.getText()}')
+        
 
-    # Visit a parse tree produced by VLADParser#notSet.
-    def visitNotSet(self, ctx:VLADParser.NotSetContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by VLADParser#blockSet.
-    def visitBlockSet(self, ctx:VLADParser.BlockSetContext) -> PartialRule:
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by VLADParser#setElement.
-    def visitSetElement(self, ctx:VLADParser.SetElementContext) -> PartialRule:
+    # Visit a parse tree produced by VLADParser#terminalDef.
+    def visitTerminalDef(self, ctx:VLADParser.TerminalDefContext) -> PartialRule:
         id = ctx.ID()
         literal = ctx.STRING_LITERAL()
+        regex_literal = ctx.REGEX_LITERAL()
         range = ctx.characterRange()
         if id is not None:
             return self._literal_to_rule(id.getText())
         elif literal is not None:
             return self._literal_to_rule(literal.getText())
+        elif regex_literal is not None:
+            return self._regex_literal_to_rule(regex_literal.getText())
         elif range is not None:
             return self.visitCharacterRange(range)
         else:
-            raise Exception(f'Unsupported setElement: {ctx.getText()}')
-
-
-    # Visit a parse tree produced by VLADParser#ruleref.
-    def visitRuleref(self, ctx:VLADParser.RulerefContext) -> PartialRule:
-        id = ctx.ID()
-        if id is not None:
-            return self._literal_to_rule(id.getText())
-        else:
-            raise Exception(f'Unsupported ruleRef: {ctx.getText()}')
-
-    # Visit a parse tree produced by VLADParser#block.
-    def visitBlock(self, ctx:VLADParser.BlockContext):
-        # A block consists of parenthesis and some elements within it, maybe child blocks.
-        # TODO We're going to need a matcher around blocks to support conditions (in parent visits) and the "multiple" cases.
-        # We might need to find a way to optimize all these rules so that we don't have to make unnecessary matchers.
-
-        # Since the "ebnfSuffix" exists at the element level (which is the parent of a block), then maybe that's definitely where a matcher should be defined,
-        # but for a block specifically we probably need subrules.
-
-        # Matchers support the optional/multiple cases and a list of valid ids. This handles the simple cases for sure.
-        # Conditional matches are going to require a junction rule which delegates to the rules defined for each case of the condition.
-        # Maybe we should start at the root of this parse tree and move down to the leaves so that we know what is expected of the leaf visits.
-        
-        return self.visitChildren(ctx)
+            raise Exception(f'Unsupported terminalDef: {ctx.getText()}')
 
 
     # Visit a parse tree produced by VLADParser#characterRange.
@@ -327,17 +320,6 @@ class VLADParserVisitor(ParseTreeVisitor):
         # The returned matcher will allow any of the characters in the range to be matched before the next matcher is processed.
         return PartialRule([LiteralTokenMatcher(token_ids, False, False)])
 
-
-    # Visit a parse tree produced by VLADParser#terminalDef.
-    def visitTerminalDef(self, ctx:VLADParser.TerminalDefContext) -> PartialRule:
-        id = ctx.ID()
-        literal = ctx.STRING_LITERAL()
-        if id is not None:
-            return self._literal_to_rule(id.getText())
-        elif literal is not None:
-            return self._literal_to_rule(literal.getText())
-        else:
-            raise Exception(f'Unsupported terminalDef: {ctx.getText()}')
 
 
 del VLADParser

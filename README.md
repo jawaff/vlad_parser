@@ -25,13 +25,14 @@ sudo apt install default-jre
 sudo apt install default-jdk
 ```
 
-### Install ANTLR Python 3 Runtime
+### Install ANTLR Tools and Python 3 Runtime
 
 Antlr 4 is what we use for parsing our grammar file and converting that information 
 into the necessary information for our main token-based parser.
 
 ```
-sudo pip install antlr4-python3-runtime
+pip install antlr4-tools
+pip install antlr4-python3-runtime
 ```
 
 ## Build

@@ -27,23 +27,25 @@
 // TODO How do we detect whether extra space tokens are even necessary for the expected text?
 
 
+// A single regular expression r'' will only match a single token! Don't automatically assume that it'll match the same way that it would for normal text.
+// We're ultimately making a grammar that is going to be used for matching token ids. Split the regular expression up into multiple literals if needed.
 fragment NAME : r'[a-zA-Z0-9\-_]+'+;
 fragment STAR : '*';
 fragment COMMA : ',';
 fragment PERIOD : '.';
 fragment CONDITION_DELIMITER : 'AND' | 'OR';
 
-// Special note for the grammar factory. All rules inside of parenthesis will result in an
-// implicit special_token rule.
-SELECT : 'SELECT' (STAR | COLUMNS) FROM;
-special COLUMNS : 'COLUMNS' COLUMN (',' COLUMN)*;
-// It's beneficial to make certain special tokens that are shared throughout the grammar
-// if the associated places represent the same data.
-special COLUMN : 'COLUMN' TABLE_ALIAS? NAME ALIAS?;
 special ALIAS : 'ALIAS' NAME;
 special TABLE_ALIAS : 'TABLE_ALIAS' NAME PERIOD;
-FROM : 'FROM' TABLE (',' TABLE)*;
+
+special COLUMN : 'COLUMN' TABLE_ALIAS? NAME ALIAS?;
+special COLUMNS : 'COLUMNS' COLUMN (',' COLUMN)*;
+
 special TABLE : 'TABLE' NAME ALIAS?;
+FROM : 'FROM' TABLE (',' TABLE)*;
+
+SELECT : 'SELECT' (STAR | COLUMNS) FROM;
+
 // WHERE : 'WHERE' CONDITION (CONDITION_DELIMITER CONDITION)*;
 
 // TODO Finish, this is where I stopped.

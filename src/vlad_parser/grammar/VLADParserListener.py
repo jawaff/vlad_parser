@@ -62,57 +62,12 @@ class VLADParserListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by VLADParser#ruleAltList.
-    def enterRuleAltList(self, ctx:VLADParser.RuleAltListContext):
+    # Enter a parse tree produced by VLADParser#fragmentRuleBlock.
+    def enterFragmentRuleBlock(self, ctx:VLADParser.FragmentRuleBlockContext):
         pass
 
-    # Exit a parse tree produced by VLADParser#ruleAltList.
-    def exitRuleAltList(self, ctx:VLADParser.RuleAltListContext):
-        pass
-
-
-    # Enter a parse tree produced by VLADParser#lexerRuleBlock.
-    def enterLexerRuleBlock(self, ctx:VLADParser.LexerRuleBlockContext):
-        pass
-
-    # Exit a parse tree produced by VLADParser#lexerRuleBlock.
-    def exitLexerRuleBlock(self, ctx:VLADParser.LexerRuleBlockContext):
-        pass
-
-
-    # Enter a parse tree produced by VLADParser#lexerAltList.
-    def enterLexerAltList(self, ctx:VLADParser.LexerAltListContext):
-        pass
-
-    # Exit a parse tree produced by VLADParser#lexerAltList.
-    def exitLexerAltList(self, ctx:VLADParser.LexerAltListContext):
-        pass
-
-
-    # Enter a parse tree produced by VLADParser#lexerAlt.
-    def enterLexerAlt(self, ctx:VLADParser.LexerAltContext):
-        pass
-
-    # Exit a parse tree produced by VLADParser#lexerAlt.
-    def exitLexerAlt(self, ctx:VLADParser.LexerAltContext):
-        pass
-
-
-    # Enter a parse tree produced by VLADParser#lexerElement.
-    def enterLexerElement(self, ctx:VLADParser.LexerElementContext):
-        pass
-
-    # Exit a parse tree produced by VLADParser#lexerElement.
-    def exitLexerElement(self, ctx:VLADParser.LexerElementContext):
-        pass
-
-
-    # Enter a parse tree produced by VLADParser#lexerBlock.
-    def enterLexerBlock(self, ctx:VLADParser.LexerBlockContext):
-        pass
-
-    # Exit a parse tree produced by VLADParser#lexerBlock.
-    def exitLexerBlock(self, ctx:VLADParser.LexerBlockContext):
+    # Exit a parse tree produced by VLADParser#fragmentRuleBlock.
+    def exitFragmentRuleBlock(self, ctx:VLADParser.FragmentRuleBlockContext):
         pass
 
 
@@ -152,12 +107,12 @@ class VLADParserListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by VLADParser#lexerAtom.
-    def enterLexerAtom(self, ctx:VLADParser.LexerAtomContext):
+    # Enter a parse tree produced by VLADParser#block.
+    def enterBlock(self, ctx:VLADParser.BlockContext):
         pass
 
-    # Exit a parse tree produced by VLADParser#lexerAtom.
-    def exitLexerAtom(self, ctx:VLADParser.LexerAtomContext):
+    # Exit a parse tree produced by VLADParser#block.
+    def exitBlock(self, ctx:VLADParser.BlockContext):
         pass
 
 
@@ -170,48 +125,12 @@ class VLADParserListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by VLADParser#notSet.
-    def enterNotSet(self, ctx:VLADParser.NotSetContext):
+    # Enter a parse tree produced by VLADParser#terminalDef.
+    def enterTerminalDef(self, ctx:VLADParser.TerminalDefContext):
         pass
 
-    # Exit a parse tree produced by VLADParser#notSet.
-    def exitNotSet(self, ctx:VLADParser.NotSetContext):
-        pass
-
-
-    # Enter a parse tree produced by VLADParser#blockSet.
-    def enterBlockSet(self, ctx:VLADParser.BlockSetContext):
-        pass
-
-    # Exit a parse tree produced by VLADParser#blockSet.
-    def exitBlockSet(self, ctx:VLADParser.BlockSetContext):
-        pass
-
-
-    # Enter a parse tree produced by VLADParser#setElement.
-    def enterSetElement(self, ctx:VLADParser.SetElementContext):
-        pass
-
-    # Exit a parse tree produced by VLADParser#setElement.
-    def exitSetElement(self, ctx:VLADParser.SetElementContext):
-        pass
-
-
-    # Enter a parse tree produced by VLADParser#ruleref.
-    def enterRuleref(self, ctx:VLADParser.RulerefContext):
-        pass
-
-    # Exit a parse tree produced by VLADParser#ruleref.
-    def exitRuleref(self, ctx:VLADParser.RulerefContext):
-        pass
-
-
-    # Enter a parse tree produced by VLADParser#block.
-    def enterBlock(self, ctx:VLADParser.BlockContext):
-        pass
-
-    # Exit a parse tree produced by VLADParser#block.
-    def exitBlock(self, ctx:VLADParser.BlockContext):
+    # Exit a parse tree produced by VLADParser#terminalDef.
+    def exitTerminalDef(self, ctx:VLADParser.TerminalDefContext):
         pass
 
 
@@ -221,15 +140,6 @@ class VLADParserListener(ParseTreeListener):
 
     # Exit a parse tree produced by VLADParser#characterRange.
     def exitCharacterRange(self, ctx:VLADParser.CharacterRangeContext):
-        pass
-
-
-    # Enter a parse tree produced by VLADParser#terminalDef.
-    def enterTerminalDef(self, ctx:VLADParser.TerminalDefContext):
-        pass
-
-    # Exit a parse tree produced by VLADParser#terminalDef.
-    def exitTerminalDef(self, ctx:VLADParser.TerminalDefContext):
         pass
 
 
