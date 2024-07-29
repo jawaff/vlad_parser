@@ -1,0 +1,85 @@
+fragment STAR : '*';
+fragment COMMA : ',';
+fragment PERIOD : '.';
+fragment AS : 'AS';
+fragment MIN : 'MIN';
+fragment MAX : 'MAX';
+fragment SUM : 'SUM';
+fragment AVG : 'AVG';
+fragment COUNT : 'COUNT';
+fragment L_PARA : '(';
+fragment R_PARA : ')';
+fragment EQUALS : '=';
+fragment ASC : 'ASC';
+fragment DESC : 'DESC';
+fragment NULLS : 'NULLS';
+fragment AND : 'AND';
+fragment OR : 'OR';
+
+fragment NAME : r'[a-zA-Z0-9\-_]+'+;
+fragment POS_INT : r'[0-9]+'+;
+fragment NUMBER : '-'? r'[0-9]+'+ ('.' r'[0-9]+'*)?;
+fragment STRING : '"' r'\w+'+ '"';
+fragment BOOL : 'true' | 'false';
+fragment GREATER_THAN : '>' '='?;
+fragment LESS_THAN : '<' '='?;
+fragment EQUALS_OR_DOES_NOT_EQUALS : '!'? '=';
+fragment IN_OR_NOT_IN : 'NOT'? 'IN';
+
+special LITERAL : 'LITERAL' NUMBER | STRING | BOOL;
+special OPERATOR : 'OPERATOR' (
+        GREATER_THAN |
+        LESS_THAN |
+        EQUALS_OR_DOES_NOT_EQUALS |
+        IN_OR_NOT_IN
+    );
+
+BETWEEN : 'BETWEEN' NUMBER AND NUMBER;
+
+special TABLE_ALIAS : 'TABLE_ALIAS' NAME;
+special TABLE_NAME : 'TABLE_NAME' NAME;
+special COLUMN_NAME : 'COLUMN_NAME' NAME;
+
+special TABLE_COLUMN : 'TABLE_COLUMN' TABLE_ALIAS PERIOD COLUMN_NAME;
+special COLUMN : 'COLUMN' (TABLE_ALIAS PERIOD)? COLUMN_NAME;
+DISTINCT_COLUMN : 'DISTINCT' COLUMN;
+
+special AGG_FUNC : ((MIN | MAX | SUM | AVG) L_PARA COLUMN R_PARA) |
+    (COUNT L_PARA (STAR | DISTINCT_COLUMN) R_PARA);
+special OUTPUT : 'OUTPUT' (COLUMN | AGG_FUNC);
+special OUTPUTS : 'OUTPUTS' OUTPUT (COMMA OUTPUT)*;
+
+DISTINCT_COLUMNS : 'DISTINCT' COLUMN (COMMA OUTPUTS)?
+
+
+// TODO Support references to later defined rules!!!! We probably need a temp
+// rules list that we later go back and fill in missing rules for.
+// We need this feature for subquery support here (e.g. SELECT).
+FROM : 'FROM' TABLE_NAME TABLE_ALIAS?
+JOIN : 'JOIN' ON COLUMN EQUALS COLUMN;
+
+// TODO Support subquery
+special EXPRESSION : (LITERAL | COLUMN | AGG_FUNC)
+special CONDITIONN : 'CONDITION' EXPRESSION (OPERATOR EXPRESSION | BETWEEN)
+
+AGG_CONDITION : AGG_FUNC (OPERATOR LITERAL | BETWEEN)
+
+WHERE : 'WHERE' CONDITION ((AND | OR) CONDITION)*
+
+GROUP_BY_HAVING : 'HAVING' AGG_CONDITION;
+GROUP_BY : 'GROUP BY' COLUMN GROUP_BY_HAVING?;
+
+ORDER_BY : (AGG_FUNC | COLUMN) (ASC | DESC) (NULLS (FIRST | LAST))?;
+
+LIMIT : 'LIMIT' POS_INT;
+OFFSET : 'OFFSET' POS_INT;
+
+root SELECT : 'SELECT' (STAR | DISTINCT_COLUMNS | OUTPUTS)
+    FROM
+    JOIN*
+    WHERE?
+    GROUP_BY?
+    ORDER_BY?
+    LIMIT?
+    OFFSET?;
+// TODO Set operations

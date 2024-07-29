@@ -62,7 +62,7 @@ output := (
         <column>
     )
 
-output_list := <output>(( AS)? <output_name>)?(, <output>(( AS)? <output_name>)?)*
+output_list := <output>(, <output>)*
 
 operator := (
         >(=)?
@@ -100,7 +100,7 @@ select := SELECT
         <output_list>
     )
     (
-        FROM (<table_name>|\(<select>\)) ((AS)? <table_alias>)?
+        FROM (<table_name>|\(<select>\)) (<table_alias>)?
         ((LEFT )? JOIN ON <column> = <column>)
     )
     (WHERE <condition>( (AND|OR) <condition>)*)?
