@@ -1,5 +1,6 @@
 from typing import List, Dict
-from tokenizers import Tokenizer # type: ignore
+from tokenizers import Tokenizer  # type: ignore
+
 
 class TokenTranslator:
     def __init__(self, tokenizer_json_path: str, custom_tokens: List[str]):
@@ -17,12 +18,15 @@ class TokenTranslator:
         return len(self._tokenizer)
 
     def get_vocab(self) -> Dict[str, int]:
-        return self._tokenizer.get_vocab(False) # type: ignore
-    
+        return self._tokenizer.get_vocab(False)  # type: ignore
+
     def add_new_token(self, token: str, error_on_exists: bool):
-        if error_on_exists and (token in self._tokenizer.get_vocab(False).keys() or token in self._custom_tokens):
+        if error_on_exists and (
+            token in self._tokenizer.get_vocab(False).keys()
+            or token in self._custom_tokens
+        ):
             raise Exception(f"Token already exists in vocabulary: {token}")
-    
+
         if token not in self._custom_tokens:
             self._custom_tokens.append(token)
             self._tokenizer.add_tokens([token])
@@ -31,7 +35,7 @@ class TokenTranslator:
         return self._tokenizer.decode(token_list)
 
     def translate(self, text: str) -> List[int]:
-        return self._tokenizer.encode(text).ids # type: ignore
+        return self._tokenizer.encode(text).ids  # type: ignore
 
     def translate_list(self, text_list: List[str]) -> List[List[int]]:
         return list(map(self.translate, text_list))

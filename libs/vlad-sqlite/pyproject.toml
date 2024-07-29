@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "vlad-sqlite"
+version = "1.0.1"
+description = "A sqlite parser built on top of the vlad-parser parser."
+authors = ["Jacob Waffle"]
+
+# Ref: https://github.com/python-poetry/poetry/issues/167#issuecomment-530895533
+packages = [ { include = "vlad", from = "src" } ]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+vlad-parser = "^1.0.1"
+
+[tool.poetry.group.dev.dependencies]
+# testing
+pytest = "^7.4"
+# linting
+black = "^23.12"
+mypy = "^1.8"
+ruff = "^0.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,12 +1,18 @@
 # This is for investigation purposes...
 
 import unittest
-from vlad_parser.translator import TokenTranslator
+import os
+
+from vlad.parser.translator import TokenTranslator
 
 
 class TestTokenTranslator(unittest.TestCase):
     def test_tokenizer(self):
-        translator = TokenTranslator("../text2sql4j/raw-files/flan-t5-large/tokenizer.json", ['order by', 'ORDER BY', 'desc', 'DESC'])
+        file_path = os.path.dirname(__file__)
+        translator = TokenTranslator(
+            os.path.join(file_path, "../assets/tokenizer.json"),
+            ["order by", "ORDER BY", "desc", "DESC"],
+        )
         print(translator.translate("decode"))
         print(translator.translate("decoding"))
         print(translator.translate("translate"))
@@ -30,8 +36,11 @@ class TestTokenTranslator(unittest.TestCase):
         print(translator.translate("order by column desc"))
         print(translator.translate("ORDER BY column DESC"))
 
-
-        print(translator.translate("SELECT count FROM count WHERE count < 10 ORDER BY count"))
+        print(
+            translator.translate(
+                "SELECT count FROM count WHERE count < 10 ORDER BY count"
+            )
+        )
 
         print(translator.translate("S"))
         print(translator.translate("SE"))
@@ -55,5 +64,6 @@ class TestTokenTranslator(unittest.TestCase):
         print(translator.decode([309]))
         print(translator.decode([25067]))
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

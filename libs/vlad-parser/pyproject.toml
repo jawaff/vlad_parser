@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "vlad-parser"
+version = "1.0.1"
+description = "A parser that specializes in parsing the output of an auto-regressive transformer for a constrained decoder."
+authors = ["Jacob Waffle"]
+
+# Ref: https://github.com/python-poetry/poetry/issues/167#issuecomment-530895533
+packages = [ { include = "vlad", from = "src" } ]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+tokenizers = "^0.13.2"
+antlr4-tools = "^0.2.1"
+antlr4-python3-runtime = "^4.13.1"
+
+[tool.poetry.group.dev.dependencies]
+# testing
+pytest = "^7.4"
+# linting
+black = "^23.12"
+mypy = "^1.8"
+ruff = "^0.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

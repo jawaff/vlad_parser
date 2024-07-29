@@ -7,7 +7,7 @@ antlr4 -Dlanguage=Python3 -visitor ./grammar/VLADParser.g4
 
 ls -l ./grammar/
 
-mv ./grammar/*.py ./src/vlad_parser/grammar/
+mv ./grammar/*.py ../libs/vlad-parser/src/vlad/parser/grammar/
 rm -rf ./grammar/*.interp
 rm -rf ./grammar/*.tokens
 rm -rf ./grammar/.antlr/
