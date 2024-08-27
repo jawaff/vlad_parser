@@ -19,6 +19,9 @@ fragment OR : 'OR';
 fragment NAME : r'[a-zA-Z0-9\-_]+'+;
 fragment POS_INT : r'[0-9]+'+;
 fragment NUMBER : '-'? r'[0-9]+'+ ('.' r'[0-9]+'*)?;
+// TODO This isn't good enough... We have no support for escaping
+// in these strings, which are required for single quotes. We also
+// don't have support for double quotes for declaring string literals.
 fragment STRING : '"' r'\w+'+ '"';
 fragment BOOL : 'true' | 'false';
 fragment GREATER_THAN : '>' '='?;
